@@ -24,6 +24,8 @@ dependencies:
   objectbox: ^4.0.1
   objectbox_flutter_libs: ^4.0.1
   icons_launcher: ^2.1.7
+  font_awesome_flutter: ^10.7.0
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

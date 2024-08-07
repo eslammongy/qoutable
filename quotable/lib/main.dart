@@ -1,5 +1,7 @@
+import 'config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:quotable/features/home/home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quotable/features/home/views/screen/home_screen.dart';
 
 void main() {
   runApp(const Quotable());
@@ -10,13 +12,20 @@ class Quotable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Quotable',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Quotable',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: ThemeMode.dark,
+          home: const HomeScreen(),
+        );
+      },
     );
   }
 }
