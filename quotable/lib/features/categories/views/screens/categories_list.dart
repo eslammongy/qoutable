@@ -15,11 +15,14 @@ class CategoriesList extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
             onTap: () {},
-            child: DecoratedBox(
-                decoration: pubBoxDecoration,
-                child: SizedBox(
-                  height: 100.h,
-                  width: 60.w,
+            borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: SizedBox(
+                height: 100.h,
+                width: 60.w,
+                child: DecoratedBox(
+                  decoration: pubBoxDecoration,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Align(
@@ -29,11 +32,14 @@ class CategoriesList extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
                         textAlign: TextAlign.center,
-                        style: TextStyles.font18Bold,
+                        style:
+                            TextStyles.font18Bold.copyWith(color: Colors.white),
                       ),
                     ),
                   ),
-                )));
+                ),
+              ),
+            ));
       },
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

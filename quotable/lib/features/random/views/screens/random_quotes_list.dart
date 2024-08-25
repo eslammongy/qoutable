@@ -11,7 +11,11 @@ class RandomQuotesList extends StatelessWidget {
         itemCount: 10,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         itemBuilder: (context, index) {
-          return InkWell(onTap: () {}, child: const QuoteListItem());
+          return InkWell(
+            onTap: () {},
+            borderRadius: BorderRadius.circular(16),
+            child: const QuoteListItem(),
+          );
         });
   }
 }

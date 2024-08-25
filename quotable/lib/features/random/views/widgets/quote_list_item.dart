@@ -14,7 +14,7 @@ class QuoteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Card(
-        color: theme.appColors.background,
+        color: theme.appColors.surface,
         child: SizedBox(
           height: 200.h,
           width: 100.w,
@@ -32,7 +32,7 @@ class QuoteListItem extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "",
+                        "Hell, there are no rules here-- we're trying to accomplish something.",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
                         textAlign: TextAlign.center,
@@ -44,14 +44,16 @@ class QuoteListItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    DecoratedBox(
-                      decoration: pubBoxDecoration,
+                    Card(
+                      color: context.theme.appColors.primary.withOpacity(0.6),
+                      elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Text(
                           "Eslam Mongy",
                           textAlign: TextAlign.center,
-                          style: TextStyles.font13SemiBold,
+                          style: TextStyles.font13SemiBold
+                              .copyWith(color: Colors.white),
                         ),
                       ),
                     ),
