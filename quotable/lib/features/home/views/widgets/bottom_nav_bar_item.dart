@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../config/theme/text_style.dart';
-import 'package:quotable/config/theme/app_theme.dart';
+import '../../../../core/theme/text_style.dart';
+import 'package:quotable/core/theme/app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavItem extends StatelessWidget {
@@ -20,7 +20,6 @@ class BottomNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final activeColor = context.theme.appColors.primary;
-    final defColor = context.theme.appColors.surface;
 
     return InkWell(
       borderRadius: BorderRadius.circular(100),
@@ -48,8 +47,8 @@ class BottomNavItem extends StatelessWidget {
           if (isActive)
             Text(
               title,
-              style: TextStyles.font13BlueRegular.copyWith(
-                color: isActive ? activeColor : defColor,
+              style: TextStyles.font13Regular.copyWith(
+                color: context.theme.appColors.onSurface,
                 letterSpacing: 1.2,
               ),
             )

@@ -1,7 +1,7 @@
 import 'bottom_nav_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:quotable/core/theme/app_theme.dart';
 import 'package:quotable/core/constant/strings.dart';
-import 'package:quotable/config/theme/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,7 +23,7 @@ class FloatingBottomNavBar extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       elevation: 4,
-      color: context.theme.appColors.background,
+      color: context.theme.appColors.tertiary,
       shadowColor: Colors.indigo.shade900,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: SizedBox(

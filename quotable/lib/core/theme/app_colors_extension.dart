@@ -12,6 +12,7 @@ class AppColorEx extends ThemeExtension<AppColorEx> {
     required this.onBackground,
     required this.surface,
     required this.onSurface,
+    required this.tertiary,
   });
 
   final Color primary;
@@ -24,6 +25,7 @@ class AppColorEx extends ThemeExtension<AppColorEx> {
   final Color onBackground;
   final Color surface;
   final Color onSurface;
+  final Color tertiary;
 
   @override
   ThemeExtension<AppColorEx> copyWith({
@@ -37,6 +39,7 @@ class AppColorEx extends ThemeExtension<AppColorEx> {
     Color? onBackground,
     Color? surface,
     Color? onSurface,
+    Color? tertiary,
   }) {
     return AppColorEx(
       primary: primary ?? this.primary,
@@ -49,6 +52,7 @@ class AppColorEx extends ThemeExtension<AppColorEx> {
       onBackground: onBackground ?? this.onBackground,
       surface: surface ?? this.surface,
       onSurface: onSurface ?? this.onSurface,
+      tertiary: tertiary ?? this.tertiary,
     );
   }
 
@@ -72,6 +76,7 @@ class AppColorEx extends ThemeExtension<AppColorEx> {
       onBackground: Color.lerp(onBackground, other.onBackground, t)!,
       surface: Color.lerp(surface, other.surface, t)!,
       onSurface: Color.lerp(onSurface, other.onSurface, t)!,
+      tertiary: Color.lerp(tertiary, other.tertiary, t)!,
     );
   }
 }

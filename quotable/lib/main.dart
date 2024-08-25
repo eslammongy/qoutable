@@ -1,9 +1,12 @@
-import 'config/theme/app_theme.dart';
+import 'core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quotable/features/home/views/screen/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // To fix texts being hidden bug in flutter_screen util in release mode.
+  await ScreenUtil.ensureScreenSize();
   runApp(const Quotable());
 }
 

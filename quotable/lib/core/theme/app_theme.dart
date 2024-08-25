@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/config/theme/app_colors_extension.dart';
+import 'package:quotable/core/theme/app_colors_extension.dart';
 
 class AppTheme {
   final ThemeMode _themeMode = ThemeMode.system;
@@ -27,6 +27,7 @@ class AppTheme {
     onBackground: Colors.black,
     surface: Colors.white,
     onSurface: Colors.black,
+    tertiary: const Color.fromARGB(255, 245, 235, 235),
   );
 
   static final dark = () {
@@ -50,6 +51,7 @@ class AppTheme {
     onBackground: Colors.white,
     surface: const Color(0xff121212),
     onSurface: Colors.white,
+    tertiary: const Color(0xFF3D3D3D),
   );
 }
 
@@ -65,4 +67,8 @@ extension AppThemeExtension on ThemeData {
 /// Usage example: `context.theme`.
 extension ThemeGetter on BuildContext {
   ThemeData get theme => Theme.of(this);
+}
+
+extension ColorSchemeGetter on BuildContext {
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
