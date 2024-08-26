@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/core/theme/app_colors_extension.dart';
+import 'package:quotable/config/theme/app_colors_extension.dart';
 
 class AppTheme {
   final ThemeMode _themeMode = ThemeMode.system;

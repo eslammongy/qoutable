@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/features/random/views/widgets/quote_list_item.dart';
+import 'package:quotable/features/random/presentation/views/widgets/quote_list_item.dart';
 
 class RandomQuotesList extends StatelessWidget {
   const RandomQuotesList({super.key});

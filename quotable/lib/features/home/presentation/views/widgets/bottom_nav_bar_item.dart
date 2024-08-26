@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/text_style.dart';
-import 'package:quotable/core/theme/app_theme.dart';
+import '../../../../../config/theme/text_style.dart';
+import 'package:quotable/config/theme/app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavItem extends StatelessWidget {

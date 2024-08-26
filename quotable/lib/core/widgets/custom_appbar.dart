@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/core/theme/app_theme.dart';
 import 'package:quotable/core/constant/strings.dart';
-import 'package:quotable/core/theme/text_style.dart';
+import 'package:quotable/config/theme/app_theme.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 
 AppBar customAppBar(ThemeData theme) {

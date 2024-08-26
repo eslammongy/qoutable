@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/features/bookmark/views/widgets/bookmark_list_item.dart';
+import 'package:quotable/features/bookmark/presentation/views/widgets/bookmark_list_item.dart';
 
 class BookmarkList extends StatelessWidget {
   const BookmarkList({super.key});

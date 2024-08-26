@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotable/core/utils/helper.dart';
-import 'package:quotable/core/theme/text_style.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesList extends StatelessWidget {
