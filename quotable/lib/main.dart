@@ -23,7 +23,7 @@ class Quotable extends StatelessWidget {
         return MaterialApp(
           title: 'Quotable',
           debugShowCheckedModeBanner: false,
-          theme: AppTheme.light,
+          theme: AppTheme.dark,
           darkTheme: AppTheme.dark,
           themeMode: ThemeMode.light,
           home: const HomeScreen(),

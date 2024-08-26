@@ -39,9 +39,7 @@ class BottomNavItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: FaIcon(icon,
-                  size: 18,
-                  color:
-                      isActive ? context.theme.appColors.surface : Colors.grey),
+                  size: 18, color: isActive ? Colors.white : Colors.grey),
             ),
           ),
           if (isActive)
