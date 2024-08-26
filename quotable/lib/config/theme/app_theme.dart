@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/core/theme/app_colors_extension.dart';
+import 'package:quotable/config/theme/app_colors_extension.dart';
 
 class AppTheme {
   final ThemeMode _themeMode = ThemeMode.system;
@@ -23,9 +23,9 @@ class AppTheme {
     onSecondary: Colors.black,
     error: const Color(0xffff3201),
     onError: Colors.white,
-    background: Colors.white,
+    background: const Color(0xFFD5D5D5),
     onBackground: Colors.black,
-    surface: Colors.white,
+    surface: const Color(0xFFEDEDED),
     onSurface: Colors.black,
     tertiary: const Color.fromARGB(255, 245, 235, 235),
   );

@@ -1,7 +1,7 @@
-import 'core/theme/app_theme.dart';
+import 'config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quotable/features/home/views/screen/home_screen.dart';
+import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,9 @@ class Quotable extends StatelessWidget {
         return MaterialApp(
           title: 'Quotable',
           debugShowCheckedModeBanner: false,
-          theme: AppTheme.light,
+          theme: AppTheme.dark,
           darkTheme: AppTheme.dark,
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.light,
           home: const HomeScreen(),
         );
       },

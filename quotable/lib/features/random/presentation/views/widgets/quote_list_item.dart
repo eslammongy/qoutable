@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/core/utils/helper.dart';
-import 'package:quotable/core/theme/app_theme.dart';
-import 'package:quotable/core/theme/text_style.dart';
+import 'package:quotable/config/theme/app_theme.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,7 +13,7 @@ class QuoteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Card(
-        color: theme.appColors.background,
+        color: theme.appColors.surface,
         child: SizedBox(
           height: 200.h,
           width: 100.w,
@@ -32,7 +31,7 @@ class QuoteListItem extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "",
+                        "Hell, there are no rules here-- we're trying to accomplish something.",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
                         textAlign: TextAlign.center,
@@ -44,14 +43,16 @@ class QuoteListItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    DecoratedBox(
-                      decoration: pubBoxDecoration,
+                    Card(
+                      color: context.theme.appColors.primary.withOpacity(0.6),
+                      elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Text(
                           "Eslam Mongy",
                           textAlign: TextAlign.center,
-                          style: TextStyles.font13SemiBold,
+                          style: TextStyles.font13SemiBold
+                              .copyWith(color: Colors.white),
                         ),
                       ),
                     ),
