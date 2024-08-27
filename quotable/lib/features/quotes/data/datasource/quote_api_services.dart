@@ -1,15 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:quotable/core/constant/strings.dart';
-import 'package:quotable/features/quotes/data/models/quote.dart';
 
-part 'quote_api_services.g.dart';
-
-@RestApi(baseUrl: quoteBaseUrl)
-abstract class QuoteApiServices {
-  factory QuoteApiServices(Dio dio) = _QuoteApiServices;
-
-  @GET('/quotes')
-  Future<HttpResponse<List<QuoteModel>>> fetchRemoteQuotes(
-      {@Query("limit") int limit = 30});
+class QuoteApiServices {
+  final Dio dio;
+  QuoteApiServices({required this.dio});
+  Future<Response<dynamic>> fetchRemoteQuotes(
+      {@Query("limit") int limit = 30}) async {
+    try {
+      final path = '$quoteBaseUrl$quotesEndpoint?limit=$limit';
+      debugPrint("ErrorMsg:: $path");
+      final dioResponse = await dio.get(path);
+      return dioResponse;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

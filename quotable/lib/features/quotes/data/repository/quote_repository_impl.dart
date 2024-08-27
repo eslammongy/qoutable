@@ -13,23 +13,23 @@ class QuoteRepositoryImpl implements QuoteRepository {
   @override
   Future<DataState<List<QuoteModel>>> fetchRemoteQuotes() async {
     try {
-     // final apiResponse = await Dio().get('https://api.quotable.io/random');
-      // final apiResponse = await quoteApiServices.fetchRemoteQuotes();
-      debugPrint(
-          "BaseUrlSuccess:: ${apiResponse.requestOptions.baseUrl}");
-      if (apiResponse.statusCode == HttpStatus.ok) {
-        return DataSuccess(apiResponse.data);
+      final response = await quoteApiServices.fetchRemoteQuotes(limit: 30);
+
+      if (response.statusCode == HttpStatus.ok) {
+        final responseJson = response.data;
+        debugPrint("Success:: $responseJson");
+        return DataSuccess(response.data);
       } else {
         final dioError = DioException(
-          requestOptions: apiResponse.requestOptions,
-          error: apiResponse.statusMessage,
+          requestOptions: response.requestOptions,
+          error: response.statusMessage,
           type: DioExceptionType.badResponse,
-          response: apiResponse,
+          response: response,
         );
         return DataFailed(dioError);
       }
     } on DioException catch (error) {
-      debugPrint("BaseUrl:: ${error.message}");
+      debugPrint("ErrorMsg:: ${error.message}");
       return DataFailed(error);
     }
   }

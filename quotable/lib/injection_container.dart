@@ -15,7 +15,7 @@ Future<void> initializeDependencies() async {
       responseType: ResponseType.json)));
 
   // Dependencies
-  getIt.registerSingleton<QuoteApiServices>(QuoteApiServices(getIt()));
+  getIt.registerSingleton<QuoteApiServices>(QuoteApiServices(dio: getIt()));
 
   getIt.registerSingleton<QuoteRepository>(
       QuoteRepositoryImpl(quoteApiServices: getIt()));
