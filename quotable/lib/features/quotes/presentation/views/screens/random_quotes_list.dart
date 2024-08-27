@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
@@ -40,7 +41,9 @@ class RandomQuotesList extends StatelessWidget {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
+              const CupertinoActivityIndicator(
+                color: Colors.indigo,
+              ),
               Text(
                 "please waiting, data is loaded...",
                 textAlign: TextAlign.center,
@@ -56,13 +59,15 @@ class RandomQuotesList extends StatelessWidget {
   ListView _displayQuoteListView(List<QuoteEntity> quotes) {
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: 10,
+        itemCount: quotes.length,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {},
             borderRadius: BorderRadius.circular(16),
-            child: const QuoteListItem(),
+            child: QuoteListItem(
+              quote: quotes[index],
+            ),
           );
         });
   }
