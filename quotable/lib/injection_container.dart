@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:quotable/core/utils/internet_checker_service.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_api_services.dart';
 import 'package:quotable/features/quotes/domain/repository/quote_repository.dart';
 import 'package:quotable/features/quotes/data/repository/quote_repository_impl.dart';
@@ -9,6 +10,8 @@ import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_b
 final getIt = GetIt.instance;
 
 Future<void> initializeDependencies() async {
+  InternetChecker.init();
+
   // Dio
   getIt.registerSingleton<Dio>(Dio(BaseOptions(
       connectTimeout: const Duration(seconds: 30),

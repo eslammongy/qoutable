@@ -1,5 +1,5 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
@@ -18,42 +18,53 @@ class RandomQuotesList extends StatelessWidget {
         if (state is RemoteQuotesSuccess) {
           return _displayQuoteListView(state.quotes!);
         } else if (state is RemoteQuoteFailed) {
-          return Center(
-              child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  AppAssets.responseErrorImg,
-                  width: 200,
-                ),
-                Text(
-                  "${state.error?.message}",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.font16SemiBold,
-                ),
-              ],
-            ),
-          ));
+          return _displayErrorWidget(state);
         } else {
-          return Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CupertinoActivityIndicator(
-                color: Colors.indigo,
-              ),
-              Text(
-                "please waiting, data is loaded...",
-                textAlign: TextAlign.center,
-                style: TextStyles.font16SemiBold,
-              ),
-            ],
-          ));
+          return _displayLoadingWidget();
         }
       },
     );
+  }
+
+  Center _displayErrorWidget(RemoteQuoteFailed state) {
+    return Center(
+        child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          state.error!.type == DioExceptionType.connectionError
+              ? Image.asset(
+                  AppAssets.noWifiImg,
+                  width: 200,
+                )
+              : Image.asset(
+                  AppAssets.responseErrorImg,
+                  width: 200,
+                ),
+          Text(
+            "${state.error?.message}",
+            textAlign: TextAlign.center,
+            style: TextStyles.font16SemiBold,
+          ),
+        ],
+      ),
+    ));
+  }
+
+  Center _displayLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const CircularProgressIndicator.adaptive(),
+        Text(
+          "please waiting, data is loaded...",
+          textAlign: TextAlign.center,
+          style: TextStyles.font16SemiBold,
+        ),
+      ],
+    ));
   }
 
   ListView _displayQuoteListView(List<QuoteEntity> quotes) {
