@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/domain/usecaces/fetch_remote_quote_usecase.dart';
@@ -18,7 +17,6 @@ class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
     final dataState = await fetchQuotesUseCase();
 
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      debugPrint("Quote: ${dataState.data![0].content}");
       emit(RemoteQuotesSuccess(quotes: dataState.data!));
     }
     if (dataState is DataFailed) {

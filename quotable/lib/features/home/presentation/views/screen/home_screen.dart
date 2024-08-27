@@ -18,8 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final screens = [
     const RandomQuotesList(),
     const CategoriesList(),
-    const BookmarkList(),
     const AuthorsList(),
+    const BookmarkList(),
   ];
   int _currentIndex = 0;
   @override
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = context.theme;
     return Scaffold(
       backgroundColor: theme.appColors.background,
-      appBar: customAppBar(theme),
+      appBar: customAppBar(context),
       extendBody: true,
       body: screens[_currentIndex],
       bottomNavigationBar: FloatingBottomNavBar(

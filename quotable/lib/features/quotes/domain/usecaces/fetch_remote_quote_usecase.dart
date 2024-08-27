@@ -10,7 +10,7 @@ class FetchRemoteQuotesUseCase
   FetchRemoteQuotesUseCase({required this.quoteRepository});
 
   @override
-  Future<DataState<List<QuoteEntity>>> call({void params}) async{
+  Future<DataState<List<QuoteEntity>>> call({void params}) async {
     return await quoteRepository.fetchRemoteQuotes();
   }
 }

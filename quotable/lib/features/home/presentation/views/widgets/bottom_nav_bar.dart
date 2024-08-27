@@ -49,16 +49,16 @@ class FloatingBottomNavBar extends StatelessWidget {
               },
             ),
             BottomNavItem(
-              title: bookMarkLabel,
-              icon: FontAwesomeIcons.solidBookmark,
+              title: authorsLabel,
+              icon: FontAwesomeIcons.user,
               isActive: currentIndex == 2 ? true : false,
               onTap: () {
                 getCurrentIndex(2);
               },
             ),
             BottomNavItem(
-              title: authorsLabel,
-              icon: FontAwesomeIcons.user,
+              title: bookMarkLabel,
+              icon: FontAwesomeIcons.solidBookmark,
               isActive: currentIndex == 3 ? true : false,
               onTap: () {
                 getCurrentIndex(3);
