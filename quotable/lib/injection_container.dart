@@ -14,35 +14,37 @@ import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_b
 final getIt = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  InternetChecker.init();
-
+  getIt.registerSingleton<InternetChecker>(InternetChecker.init());
   // Dio
-  getIt.registerSingleton<Dio>(Dio(BaseOptions(
+  getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(
       connectTimeout: const Duration(seconds: 30),
       responseType: ResponseType.json)));
 
   // Dependencies
-  getIt.registerSingleton<QuoteApiServices>(QuoteApiServices(dio: getIt()));
+  getIt.registerLazySingleton<QuoteApiServices>(
+      () => QuoteApiServices(dio: getIt()));
 
-  getIt.registerSingleton<QuoteRepository>(
-      QuoteRepositoryImpl(quoteApiServices: getIt()));
+  getIt.registerLazySingleton<QuoteRepository>(
+      () => QuoteRepositoryImpl(quoteApiServices: getIt()));
 
-  getIt.registerSingleton<AppSettingsRepo>(AppSettingsRepositoryImpl());
+  getIt.registerLazySingleton<AppSettingsRepo>(
+      () => AppSettingsRepositoryImpl());
 
   //UseCases
-  getIt.registerSingleton<FetchRemoteQuotesUseCase>(
-    FetchRemoteQuotesUseCase(
+  getIt.registerLazySingleton<FetchRemoteQuotesUseCase>(
+    () => FetchRemoteQuotesUseCase(
       quoteRepository: getIt(),
     ),
   );
 
-  getIt.registerSingleton<ChangeAppThemeUseCase>(
-    ChangeAppThemeUseCase(
+  getIt.registerLazySingleton<ChangeAppThemeUseCase>(
+    () => ChangeAppThemeUseCase(
       appSettingsRepo: getIt(),
     ),
   );
 
   //Blocs
   getIt.registerFactory<RemoteQuoteBloc>(() => RemoteQuoteBloc(getIt()));
-  getIt.registerFactory<AppSettingsBloc>(() => AppSettingsBloc(changeAppTheme: getIt()));
+  getIt.registerFactory<AppSettingsBloc>(
+      () => AppSettingsBloc(changeAppTheme: getIt()));
 }

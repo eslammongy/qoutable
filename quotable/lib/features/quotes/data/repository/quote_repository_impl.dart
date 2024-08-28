@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/data/models/quote.dart';
 import 'package:quotable/core/utils/internet_checker_service.dart';
@@ -12,33 +13,43 @@ class QuoteRepositoryImpl implements QuoteRepository {
   QuoteRepositoryImpl({required this.quoteApiServices});
   @override
   Future<DataState<List<QuoteModel>>> fetchRemoteQuotes() async {
+    if (!await InternetChecker.checkConnection()) {
+      return DataFailed(noConnectionError());
+    }
     try {
-      InternetChecker.checkConnection();
       final response = await quoteApiServices.getRemoteQuotes(limit: 30);
 
       if (response.statusCode == HttpStatus.ok) {
         final quotesJson = response.data['results'] as List;
-
-        final quotes = <QuoteModel>[];
-        for (var element in quotesJson) {
-          final quote = QuoteModel.fromJson(element);
-
-          quotes.add(quote);
-        }
-
+        final quotes =
+            quotesJson.map((json) => QuoteModel.fromJson(json)).toList();
         return DataSuccess(quotes);
       } else {
-        final dioError = DioException(
-          requestOptions: response.requestOptions,
-          error: response.statusMessage,
-          type: DioExceptionType.badResponse,
-          response: response,
-        );
-        return DataFailed(dioError);
+        return DataFailed(badResponseError(response));
       }
     } on DioException catch (error) {
-      debugPrint("ErrorMsg:: ${error.message}");
       return DataFailed(error);
     }
+  }
+
+  DioException noConnectionError() {
+    final dioError = DioException(
+      requestOptions: RequestOptions(),
+      error: connectionErrMsg,
+      message: connectionErrMsg,
+      type: DioExceptionType.connectionError,
+      response: null,
+    );
+    return dioError;
+  }
+
+  DioException badResponseError(Response response) {
+    final dioError = DioException(
+      requestOptions: response.requestOptions,
+      error: response.statusMessage,
+      type: DioExceptionType.badResponse,
+      response: response,
+    );
+    return dioError;
   }
 }

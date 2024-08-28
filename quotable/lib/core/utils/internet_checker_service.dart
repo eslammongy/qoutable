@@ -1,38 +1,27 @@
-import 'package:dio/dio.dart';
-import 'package:quotable/core/constant/constant.dart';
+import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class InternetChecker {
+  static final InternetChecker _instance = InternetChecker._internal();
   static bool _hasConnection = false;
 
-  static init() {
-    InternetConnectionChecker instance = InternetConnectionChecker();
-    // initial status
-    instance.connectionStatus.then(
-      (value) => _hasConnection = value == InternetConnectionStatus.connected,
-    );
-
-    // listen to status change
-    instance.onStatusChange.listen(
+  InternetChecker._internal() {
+    // Listen to status changes and update the connection status.
+    InternetConnectionChecker().onStatusChange.listen(
       (status) {
+        debugPrint("Network Connection status: $status");
         _hasConnection = status == InternetConnectionStatus.connected;
       },
     );
   }
 
-  /// this dio exception "connectionError" related to NoInternetConnection exp.
-  /// throwing NoInternetConnection exp
-  static checkConnection() {
-    if (!_hasConnection) {
-      final dioError = DioException(
-        requestOptions: RequestOptions(),
-        error: connectionErrMsg,
-        message:connectionErrMsg,
-        type: DioExceptionType.connectionError,
-        response: null,
-      );
+  factory InternetChecker.init() {
+    return _instance;
+  }
 
-      throw dioError;
-    }
+  static Future<bool> checkConnection() async {
+    if (_hasConnection) return _hasConnection;
+    return Future.delayed(
+        const Duration(milliseconds: 10), () => _hasConnection);
   }
 }
