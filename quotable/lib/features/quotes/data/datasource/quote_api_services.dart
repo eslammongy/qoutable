@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:quotable/core/constant/strings.dart';
+import 'package:quotable/core/constant/constant.dart';
 
 class QuoteApiServices {
   final Dio dio;

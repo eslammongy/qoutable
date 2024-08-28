@@ -9,3 +9,5 @@ const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";
 const categoryQuotesEndpoint = "/categories";
 const authorsEndpoint = "/authors";
+
+const String connectionErrMsg = "Connection Error: No Internet Connection";

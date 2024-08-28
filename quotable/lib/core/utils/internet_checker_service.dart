@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class InternetChecker {
@@ -25,8 +26,8 @@ class InternetChecker {
     if (!_hasConnection) {
       final dioError = DioException(
         requestOptions: RequestOptions(),
-        error: "Connection Error: No Internet Connection",
-        message: "Connection Error: No Internet Connection",
+        error: connectionErrMsg,
+        message:connectionErrMsg,
         type: DioExceptionType.connectionError,
         response: null,
       );

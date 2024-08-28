@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
@@ -33,7 +33,7 @@ class RandomQuotesList extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          state.error!.type == DioExceptionType.connectionError
+          state.error?.message == connectionErrMsg
               ? Image.asset(
                   AppAssets.noWifiImg,
                   width: 200,
