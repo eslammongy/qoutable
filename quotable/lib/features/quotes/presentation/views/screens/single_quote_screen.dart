@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
+import 'package:quotable/features/quotes/presentation/views/widgets/quote_font_toggles.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_decorated_box.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_theme_toggels.dart';
 
@@ -26,7 +27,11 @@ class SingleQuoteScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const QuoteThemeToggles()
+            const QuoteThemeToggles(),
+            const SizedBox(
+              height: 20,
+            ),
+            const QuoteFontToggles()
           ],
         ),
       ),

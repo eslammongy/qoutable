@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/core/error/api_error_msg.dart';
 
 abstract class Failure {
   final DioExceptionType exceptionType;
