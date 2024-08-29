@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccentColorToggles extends StatelessWidget {
   const AccentColorToggles({super.key});
@@ -14,56 +14,45 @@ class AccentColorToggles extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Accent Color",
+          "Theme",
           style: theme.textTheme.titleMedium
               ?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 1.2),
         ),
         _buildAccentColorBtn(
-          context,
-          theme.primaryColor,
+          [const Color(0xFF5F20F1), const Color(0xFFAE0606)],
           selectedColor.value == theme.primaryColor.value,
         ),
         _buildAccentColorBtn(
-          context,
-          Colors.purple,
+          [const Color(0xFFe9d022), const Color(0xFFe60b09)],
           selectedColor.value == Colors.purple.value,
         ),
         _buildAccentColorBtn(
-          context,
-          Colors.green,
+          [const Color(0xFF0061ff), const Color(0xFF60efff)],
           selectedColor.value == Colors.green.value,
         ),
         _buildAccentColorBtn(
-          context,
-          Colors.teal,
+          [const Color(0xFF8752a3), const Color(0xFF6274e7)],
+          selectedColor.value == Colors.green.value,
+        ),
+        _buildAccentColorBtn(
+          [const Color(0xFF60efff), const Color(0xFF00ff87)],
           selectedColor.value == Colors.teal.value,
         )
       ],
     );
   }
 
-  _buildAccentColorBtn(BuildContext context, Color color, bool isSelected) {
+  _buildAccentColorBtn(List<Color> colors, bool isSelected,
+      {Function()? onTap}) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: DecoratedBox(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            border: Border.fromBorderSide(
-              isSelected
-                  ? const BorderSide(width: 2, color: Colors.grey)
-                  : BorderSide.none,
-            )),
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Card(
-            color: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: SizedBox(
-              height: 22.w,
-              width: 22.w,
-            ),
+        decoration: customizedDecorationBox(colors, radius: 100),
+        child: const Padding(
+          padding: EdgeInsets.all(2.0),
+          child: SizedBox(
+            height: 30,
+            width: 30,
           ),
         ),
       ),

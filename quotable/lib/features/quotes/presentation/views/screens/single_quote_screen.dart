@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
+import 'package:quotable/features/quotes/presentation/views/widgets/accent_color_toggles.dart';
 
 class SingleQuoteScreen extends StatelessWidget {
   const SingleQuoteScreen({super.key, required this.quote});
@@ -25,59 +26,54 @@ class SingleQuoteScreen extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            DecoratedBox(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF5F20F1),
-                    Color(0xFF831D95),
-                    Color(0xFFAE0606),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                    0.0,
-                    0.5,
-                    1.0
-                  ], // Optional, controls the distribution of colors
-                ),
+            buildDecoratedQuoteCard(),
+            const SizedBox(
+              height: 20,
+            ),
+            const AccentColorToggles()
+          ],
+        ),
+      ),
+    );
+  }
+
+  DecoratedBox buildDecoratedQuoteCard() {
+    return DecoratedBox(
+      decoration: customizedDecorationBox([
+        const Color(0xFF5F20F1),
+        const Color(0xFFAE0606),
+      ]),
+      child: SizedBox(
+        height: 220.h,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Icon(FontAwesomeIcons.quoteLeft),
               ),
-              child: SizedBox(
-                height: 220.h,
+              Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: Icon(FontAwesomeIcons.quoteLeft),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              quote.content ?? '',
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 4,
-                              textAlign: TextAlign.center,
-                              style: TextStyles.font18Bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Align(
-                        alignment: Alignment.bottomRight,
-                        child: Icon(FontAwesomeIcons.quoteRight),
-                      ),
-                    ],
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      quote.content ?? '',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.font18Bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              const Align(
+                alignment: Alignment.bottomRight,
+                child: Icon(FontAwesomeIcons.quoteRight),
+              ),
+            ],
+          ),
         ),
       ),
     );
