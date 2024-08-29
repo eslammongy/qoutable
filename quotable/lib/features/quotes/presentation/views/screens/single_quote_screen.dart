@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_font_toggles.dart';
+import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_decorated_box.dart';
-import 'package:quotable/features/quotes/presentation/views/widgets/quote_theme_toggels.dart';
+import 'package:quotable/features/quotes/presentation/views/widgets/quote_theme_toggles.dart';
 
 class SingleQuoteScreen extends StatelessWidget {
   const SingleQuoteScreen({super.key, required this.quote});
@@ -11,28 +13,30 @@ class SingleQuoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: singleViewAppBar(context, title: quote.author ?? ''),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 25,
-            ),
-            QuoteDecoratedBox(
-              quote: quote,
-              key: quoteDecoratedBoxKey,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const QuoteThemeToggles(),
-            const SizedBox(
-              height: 20,
-            ),
-            const QuoteFontToggles()
-          ],
+    return BlocProvider<DecorateQuoteBloc>(
+      create: (context) => DecorateQuoteBloc(),
+      child: Scaffold(
+        appBar: singleViewAppBar(context, title: quote.author ?? ''),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 25,
+              ),
+              QuoteDecoratedBox(
+                quote: quote,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const QuoteThemeToggles(),
+              const SizedBox(
+                height: 20,
+              ),
+              const QuoteFontToggles()
+            ],
+          ),
         ),
       ),
     );

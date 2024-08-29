@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_font_toggles.dart';
+import 'package:quotable/features/quotes/presentation/views/widgets/quote_theme_toggles.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_state.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_event.dart';
 
@@ -10,7 +11,7 @@ class DecorateQuoteBloc extends Bloc<DecorateQuoteEvents, DecorateQuoteState> {
     on<DecorateQuoteTextEvent>(onChangeQuoteTextStyle);
   }
 
-  List<Color> selectedThemeColors = [];
+  List<Color> selectedThemeColors = toggleGradients[0];
   TextStyle quoteTextStyle = quoteFontStyles[1]!;
 
   onChangeQuoteBoxTheme(
@@ -18,6 +19,7 @@ class DecorateQuoteBloc extends Bloc<DecorateQuoteEvents, DecorateQuoteState> {
     Emitter<DecorateQuoteState> emit,
   ) {
     selectedThemeColors = event.colors;
+    debugPrint("Selected Theme Colors: $selectedThemeColors");
     emit(DecorateQuoteThemeState(colors: selectedThemeColors));
   }
 

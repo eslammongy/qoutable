@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 const String kAppName = "Quotable";
 const String homeLabel = "Home";
 const String randomLabel = "Random";
@@ -10,8 +13,8 @@ const quotesEndpoint = "/quotes";
 const categoryQuotesEndpoint = "/categories";
 const authorsEndpoint = "/authors";
 
-const String fmCairo = "cairo";
-const String fmKanit = "kanit";
-const String fmRoboto = "roboto";
-const String fmRobotoSlab = "robotoSlab";
-const String fmLora = "lora";
+TextStyle kanitFontStyle = GoogleFonts.kanit();
+TextStyle robotoFontStyle = GoogleFonts.roboto();
+TextStyle cairoFontStyle = GoogleFonts.cairo();
+TextStyle robotoSlabFontStyle = GoogleFonts.robotoSlab();
+TextStyle loraFontStyle = GoogleFonts.lora();

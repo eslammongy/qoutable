@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
+import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_event.dart';
 
 final quoteFontStyles = {
-  1: GoogleFonts.getFont(fmCairo),
-  2: GoogleFonts.getFont(fmKanit),
-  3: GoogleFonts.getFont(fmRoboto),
-  4: GoogleFonts.getFont(fmRobotoSlab),
-  5: GoogleFonts.getFont(fmLora),
+  1: robotoFontStyle,
+  2: kanitFontStyle,
+  3: cairoFontStyle,
+  4: robotoSlabFontStyle,
+  5: loraFontStyle,
 };
 
 class QuoteFontToggles extends StatelessWidget {
@@ -16,6 +18,7 @@ class QuoteFontToggles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final decoratedBloc = BlocProvider.of<DecorateQuoteBloc>(context);
     final theme = context.theme;
 
     return Row(
@@ -32,31 +35,36 @@ class QuoteFontToggles extends StatelessWidget {
           theme,
           true,
           quoteFontStyles[1]!,
-          onTap: () {},
+          onTap: () => decoratedBloc
+              .add(DecorateQuoteTextEvent(textStyle: quoteFontStyles[1]!)),
         ),
         _buildMsgFontBtn(
           theme,
           false,
           quoteFontStyles[2]!,
-          onTap: () {},
+          onTap: () => decoratedBloc
+              .add(DecorateQuoteTextEvent(textStyle: quoteFontStyles[2]!)),
         ),
         _buildMsgFontBtn(
           theme,
           true,
           quoteFontStyles[3]!,
-          onTap: () {},
+          onTap: () => decoratedBloc
+              .add(DecorateQuoteTextEvent(textStyle: quoteFontStyles[3]!)),
         ),
         _buildMsgFontBtn(
           theme,
           false,
           quoteFontStyles[4]!,
-          onTap: () {},
+          onTap: () => decoratedBloc
+              .add(DecorateQuoteTextEvent(textStyle: quoteFontStyles[4]!)),
         ),
         _buildMsgFontBtn(
           theme,
           true,
           quoteFontStyles[5]!,
-          onTap: () {},
+          onTap: () => decoratedBloc
+              .add(DecorateQuoteTextEvent(textStyle: quoteFontStyles[5]!)),
         ),
       ],
     );

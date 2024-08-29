@@ -5,7 +5,8 @@ abstract class DecorateQuoteState extends Equatable {
   final List<Color>? colors;
   final TextStyle? textStyle;
 
-  const DecorateQuoteState({this.colors, this.textStyle});
+  const DecorateQuoteState(
+      {this.colors = const [], this.textStyle = const TextStyle()});
 
   @override
   List<Object> get props => [colors!, textStyle!];
