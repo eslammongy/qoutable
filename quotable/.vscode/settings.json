@@ -3,5 +3,8 @@
         "lerp",
         "screenutil",
         "usecaces"
+    ],
+    "conventionalCommits.scopes": [
+        "single quote screen ui part1"
     ]
 }

@@ -25,16 +25,26 @@ class CategoriesList extends StatelessWidget {
                   decoration: pubBoxDecoration,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Productivity",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyles.font18Bold.copyWith(color: Colors.white),
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Productivity",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
+                          textAlign: TextAlign.center,
+                          style: TextStyles.font18Bold
+                              .copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          "30 Quotes",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
+                          textAlign: TextAlign.center,
+                          style: TextStyles.font18Bold
+                              .copyWith(color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
                 ),

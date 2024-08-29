@@ -8,7 +8,7 @@ import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart'
 import 'package:quotable/features/home/presentation/bloc/app_settings_events.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
 
-AppBar customAppBar(BuildContext context) {
+AppBar homeAppBar(BuildContext context) {
   final appSettingsBloc = BlocProvider.of<AppSettingsBloc>(context);
   return AppBar(
     backgroundColor: context.theme.appColors.background,

@@ -10,6 +10,11 @@ const quotesEndpoint = "/quotes";
 const categoryQuotesEndpoint = "/categories";
 const authorsEndpoint = "/authors";
 
+const String cairoFM = "Cairo";
+const String dancingScript = "DancingScript";
+const String ubuntuSans = "UbuntuSans";
+const String chakraPatch = "ChakraPetch";
+
 const String success = "the request was successful";
 // error handler
 const String noInternetError = "Connection Error: No Internet Connection";
