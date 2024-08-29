@@ -1,10 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 
 abstract class RemoteQuoteState extends Equatable {
   final List<QuoteEntity>? quotes;
-  final DioException? error;
+  final Failure? error;
 
   const RemoteQuoteState({this.quotes, this.error});
 
@@ -22,5 +22,5 @@ class RemoteQuotesSuccess extends RemoteQuoteState {
 }
 
 class RemoteQuoteFailed extends RemoteQuoteState {
-  const RemoteQuoteFailed({required DioException error}) : super(error: error);
+  const RemoteQuoteFailed({required Failure error}) : super(error: error);
 }

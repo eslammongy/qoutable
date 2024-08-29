@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/data/models/quote.dart';
 import 'package:quotable/core/utils/internet_checker_service.dart';
@@ -14,7 +13,7 @@ class QuoteRepositoryImpl implements QuoteRepository {
   @override
   Future<DataState<List<QuoteModel>>> fetchRemoteQuotes() async {
     if (!await InternetChecker.checkConnection()) {
-      return DataFailed(noConnectionError());
+      return DataFailed(ServerFailure.handleError(noConnection()));
     }
     try {
       final response = await quoteApiServices.getRemoteQuotes(limit: 30);
@@ -25,25 +24,19 @@ class QuoteRepositoryImpl implements QuoteRepository {
             quotesJson.map((json) => QuoteModel.fromJson(json)).toList();
         return DataSuccess(quotes);
       } else {
-        return DataFailed(badResponseError(response));
+        return DataFailed(ServerFailure.handleError(badResponse(response)));
       }
     } on DioException catch (error) {
-      return DataFailed(error);
+      return DataFailed(ServerFailure.handleError(error));
     }
   }
 
-  DioException noConnectionError() {
-    final dioError = DioException(
-      requestOptions: RequestOptions(),
-      error: connectionErrMsg,
-      message: connectionErrMsg,
-      type: DioExceptionType.connectionError,
-      response: null,
-    );
-    return dioError;
-  }
+  DioException noConnection() => DioException(
+        requestOptions: RequestOptions(),
+        type: DioExceptionType.connectionError,
+      );
 
-  DioException badResponseError(Response response) {
+  DioException badResponse(Response response) {
     final dioError = DioException(
       requestOptions: response.requestOptions,
       error: response.statusMessage,

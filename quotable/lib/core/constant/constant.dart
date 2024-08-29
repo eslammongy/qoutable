@@ -34,6 +34,8 @@ const String strUnknownError = "unknown_error";
 const String receivingTimeout = "receiving data from the API timed out";
 const String sendingTimeout = "sending data to the API timed out";
 const String connectionTimeout = "the connection to the API timed out";
+const String connectionError =
+    "The connection errored and the request could not be completed: Failed host lookup";
 const String defaultError =
     "the server cannot or will not process the request due to an internal error";
 const String cacheError =

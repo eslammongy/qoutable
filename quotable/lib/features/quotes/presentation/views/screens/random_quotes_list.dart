@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
@@ -27,13 +28,14 @@ class RandomQuotesList extends StatelessWidget {
   }
 
   Center _displayErrorWidget(RemoteQuoteFailed state) {
+    final error = state.error as ServerFailure;
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          state.error?.message == noInternetError
+          error.message == noInternetError
               ? Image.asset(
                   AppAssets.noWifiImg,
                   width: 200,

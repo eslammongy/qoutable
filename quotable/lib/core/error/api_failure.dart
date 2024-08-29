@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:quotable/core/constant/constant.dart';
 
@@ -13,63 +12,63 @@ abstract class Failure {
   });
 }
 
-class ServerError extends Failure {
-  ServerError({
+class ServerFailure extends Failure {
+  ServerFailure({
     required super.exceptionType,
     super.statusCode,
     super.message,
   });
 
-  factory ServerError.fromTimeout(DioException exception) {
+  factory ServerFailure.handleError(DioException exception) {
     final type = exception.type;
     final statusCode = exception.response?.statusCode;
     switch (type) {
       case DioExceptionType.badResponse:
-        return ServerError(
-          exceptionType: DioExceptionType.cancel,
+        return ServerFailure(
+          exceptionType: DioExceptionType.badCertificate,
           statusCode: statusCode,
           message: _handleBadResponseExpMsg(statusCode ?? 404),
         );
       case DioExceptionType.badCertificate:
-        return ServerError(
+        return ServerFailure(
           exceptionType: DioExceptionType.cancel,
           statusCode: statusCode,
           message: badResponseError,
         );
       case DioExceptionType.receiveTimeout:
-        return ServerError(
+        return ServerFailure(
           exceptionType: DioExceptionType.receiveTimeout,
           statusCode: statusCode,
           message: receivingTimeout,
         );
       case DioExceptionType.sendTimeout:
-        return ServerError(
+        return ServerFailure(
           exceptionType: DioExceptionType.sendTimeout,
           statusCode: statusCode,
           message: sendingTimeout,
         );
       case DioExceptionType.connectionTimeout:
-        return ServerError(
+        return ServerFailure(
           exceptionType: DioExceptionType.connectionTimeout,
           statusCode: statusCode,
           message: connectionTimeout,
         );
       case DioExceptionType.cancel:
-        return ServerError(
+        return ServerFailure(
           exceptionType: DioExceptionType.cancel,
           statusCode: statusCode,
           message: cancelError,
         );
       case DioExceptionType.connectionError:
-        return ServerError(
-          exceptionType: DioExceptionType.cancel,
+        return ServerFailure(
+          exceptionType: DioExceptionType.connectionError,
           statusCode: statusCode,
-          message: noInternetError,
+          message: connectionError,
         );
 
       default:
-        return ServerError(
-          exceptionType: DioExceptionType.cancel,
+        return ServerFailure(
+          exceptionType: DioExceptionType.unknown,
           statusCode: statusCode,
           message: defaultError,
         );
