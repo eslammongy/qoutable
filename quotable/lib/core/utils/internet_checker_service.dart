@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class InternetChecker {
@@ -7,9 +6,9 @@ class InternetChecker {
 
   InternetChecker._internal() {
     // Listen to status changes and update the connection status.
+
     InternetConnectionChecker().onStatusChange.listen(
       (status) {
-        debugPrint("Network Connection status: $status");
         _hasConnection = status == InternetConnectionStatus.connected;
       },
     );

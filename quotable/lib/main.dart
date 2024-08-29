@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +11,7 @@ import 'package:quotable/features/home/presentation/views/screen/home_screen.dar
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
 
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   await ScreenUtil.ensureScreenSize();
@@ -42,7 +42,7 @@ class Quotable extends StatelessWidget {
               final themeMode =
                   BlocProvider.of<AppSettingsBloc>(context).themeMode;
               return MaterialApp(
-                title:kAppName,
+                title: kAppName,
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.light,
                 darkTheme: AppTheme.dark,

@@ -33,7 +33,7 @@ class RandomQuotesList extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          state.error?.message == connectionErrMsg
+          state.error?.message == noInternetError
               ? Image.asset(
                   AppAssets.noWifiImg,
                   width: 200,
