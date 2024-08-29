@@ -12,7 +12,7 @@ class DecorateQuoteBloc extends Bloc<DecorateQuoteEvents, DecorateQuoteState> {
   }
 
   List<Color> selectedThemeColors = toggleGradients[0];
-  TextStyle quoteTextStyle = quoteFontStyles[1]!;
+  TextStyle quoteTextStyle = quoteFontStyles[0];
 
   onChangeQuoteBoxTheme(
     DecorateQuoteThemeEvent event,

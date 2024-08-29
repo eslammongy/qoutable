@@ -4,6 +4,7 @@ import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_event.dart';
+import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_state.dart';
 
 const toggleGradients = [
   [Color(0xFF5F20F1), Color(0xFFAE0606)],
@@ -20,47 +21,50 @@ class QuoteThemeToggles extends StatelessWidget {
   Widget build(BuildContext context) {
     final decoratedBloc = BlocProvider.of<DecorateQuoteBloc>(context);
     final theme = context.theme;
-    final selectedColor = ValueNotifier(theme.primaryColor.value);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "Theme",
-          style: theme.textTheme.titleMedium
-              ?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 1.2),
-        ),
-        _buildAccentColorBtn(
-          toggleGradients[0],
-          selectedColor.value == theme.primaryColor.value,
-          onTap: () => decoratedBloc
-              .add(DecorateQuoteThemeEvent(colors: toggleGradients[0])),
-        ),
-        _buildAccentColorBtn(
-          toggleGradients[1],
-          selectedColor.value == Colors.purple.value,
-          onTap: () => decoratedBloc
-              .add(DecorateQuoteThemeEvent(colors: toggleGradients[1])),
-        ),
-        _buildAccentColorBtn(
-          toggleGradients[2],
-          selectedColor.value == Colors.green.value,
-          onTap: () => decoratedBloc
-              .add(DecorateQuoteThemeEvent(colors: toggleGradients[2])),
-        ),
-        _buildAccentColorBtn(
-          toggleGradients[3],
-          selectedColor.value == Colors.green.value,
-          onTap: () => decoratedBloc
-              .add(DecorateQuoteThemeEvent(colors: toggleGradients[3])),
-        ),
-        _buildAccentColorBtn(
-          toggleGradients[4],
-          selectedColor.value == Colors.teal.value,
-          onTap: () => decoratedBloc
-              .add(DecorateQuoteThemeEvent(colors: toggleGradients[4])),
-        )
-      ],
+    return BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Theme",
+              style: theme.textTheme.titleMedium
+                  ?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 1.2),
+            ),
+            _buildAccentColorBtn(
+              toggleGradients[0],
+              toggleGradients[0] == decoratedBloc.selectedThemeColors,
+              onTap: () => decoratedBloc
+                  .add(DecorateQuoteThemeEvent(colors: toggleGradients[0])),
+            ),
+            _buildAccentColorBtn(
+              toggleGradients[1],
+              toggleGradients[1] == decoratedBloc.selectedThemeColors,
+              onTap: () => decoratedBloc
+                  .add(DecorateQuoteThemeEvent(colors: toggleGradients[1])),
+            ),
+            _buildAccentColorBtn(
+              toggleGradients[2],
+              toggleGradients[2] == decoratedBloc.selectedThemeColors,
+              onTap: () => decoratedBloc
+                  .add(DecorateQuoteThemeEvent(colors: toggleGradients[2])),
+            ),
+            _buildAccentColorBtn(
+              toggleGradients[3],
+              toggleGradients[3] == decoratedBloc.selectedThemeColors,
+              onTap: () => decoratedBloc
+                  .add(DecorateQuoteThemeEvent(colors: toggleGradients[3])),
+            ),
+            _buildAccentColorBtn(
+              toggleGradients[4],
+              toggleGradients[4] == decoratedBloc.selectedThemeColors,
+              onTap: () => decoratedBloc
+                  .add(DecorateQuoteThemeEvent(colors: toggleGradients[4])),
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -70,12 +74,18 @@ class QuoteThemeToggles extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(60),
       child: DecoratedBox(
-        decoration: customizedDecorationBox(colors, radius: 100),
-        child: const Padding(
-          padding: EdgeInsets.all(2.0),
-          child: SizedBox(
-            height: 30,
-            width: 30,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            border:
+                isSelected ? Border.all(color: Colors.grey, width: 2) : null),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: DecoratedBox(
+            decoration: customizedDecorationBox(colors, radius: 100),
+            child: const SizedBox(
+              height: 35,
+              width: 35,
+            ),
           ),
         ),
       ),

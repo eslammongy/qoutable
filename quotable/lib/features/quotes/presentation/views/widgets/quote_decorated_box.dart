@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
+import 'package:quotable/config/theme/app_theme.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
@@ -21,10 +23,12 @@ class QuoteDecoratedBox extends StatelessWidget {
     return BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
       builder: (context, state) {
         return DecoratedBox(
-          decoration:
-              customizedDecorationBox(decoratedBloc.selectedThemeColors),
-          child: SizedBox(
-            height: 220.h,
+          decoration: customizedDecorationBox(
+            decoratedBloc.selectedThemeColors,
+            radius: 14,
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: 220.h, maxHeight: 300.h),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -44,14 +48,33 @@ class QuoteDecoratedBox extends StatelessWidget {
                           maxLines: 4,
                           textAlign: TextAlign.center,
                           style: decoratedBloc.quoteTextStyle
-                              .copyWith(fontSize: 20),
+                              .copyWith(fontSize: 22),
                         ),
                       ),
                     ),
                   ),
-                  const Align(
-                    alignment: Alignment.bottomRight,
-                    child: Icon(FontAwesomeIcons.quoteRight),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Card(
+                        color:
+                            context.theme.appColors.background.withOpacity(0.8),
+                        elevation: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            quote.author ?? '',
+                            textAlign: TextAlign.center,
+                            style: TextStyles.font13SemiBold
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      const Align(
+                        alignment: Alignment.bottomRight,
+                        child: Icon(FontAwesomeIcons.quoteRight),
+                      ),
+                    ],
                   ),
                 ],
               ),
