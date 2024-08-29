@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:quotable/core/constant/strings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
+import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
+import 'package:quotable/features/home/presentation/bloc/app_settings_events.dart';
+import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
 
-AppBar customAppBar(ThemeData theme) {
+AppBar customAppBar(BuildContext context) {
+  final appSettingsBloc = BlocProvider.of<AppSettingsBloc>(context);
   return AppBar(
-    backgroundColor: theme.appColors.background,
+    backgroundColor: context.theme.appColors.background,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
@@ -25,7 +30,19 @@ AppBar customAppBar(ThemeData theme) {
       ],
     ),
     actions: [
-      IconButton(onPressed: () {}, icon: const Icon(Icons.brightness_4_rounded))
+      BlocBuilder<AppSettingsBloc, AppSettingsStates>(
+        builder: (context, state) {
+          return IconButton(
+            onPressed: () {
+              final isLight = appSettingsBloc.themeMode == ThemeMode.light;
+              appSettingsBloc.add(ChangeAppTheme(isLight: !isLight));
+            },
+            icon: Icon(appSettingsBloc.themeMode == ThemeMode.dark
+                ? Icons.brightness_6_rounded
+                : Icons.brightness_4_outlined),
+          );
+        },
+      )
     ],
   );
 }

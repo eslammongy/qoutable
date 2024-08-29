@@ -1,6 +1,6 @@
 import 'bottom_nav_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:quotable/core/constant/strings.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,16 +49,16 @@ class FloatingBottomNavBar extends StatelessWidget {
               },
             ),
             BottomNavItem(
-              title: bookMarkLabel,
-              icon: FontAwesomeIcons.solidBookmark,
+              title: authorsLabel,
+              icon: FontAwesomeIcons.user,
               isActive: currentIndex == 2 ? true : false,
               onTap: () {
                 getCurrentIndex(2);
               },
             ),
             BottomNavItem(
-              title: authorsLabel,
-              icon: FontAwesomeIcons.user,
+              title: bookMarkLabel,
+              icon: FontAwesomeIcons.solidBookmark,
               isActive: currentIndex == 3 ? true : false,
               onTap: () {
                 getCurrentIndex(3);

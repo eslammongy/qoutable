@@ -3,11 +3,14 @@ import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quotable/features/quotes/domain/entities/quote.dart';
 
 class QuoteListItem extends StatelessWidget {
   const QuoteListItem({
     super.key,
+    required this.quote,
   });
+  final QuoteEntity quote;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class QuoteListItem extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Hell, there are no rules here-- we're trying to accomplish something.",
+                        quote.content ?? '',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
                         textAlign: TextAlign.center,
@@ -49,7 +52,7 @@ class QuoteListItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Text(
-                          "Eslam Mongy",
+                          quote.author ?? '',
                           textAlign: TextAlign.center,
                           style: TextStyles.font13SemiBold
                               .copyWith(color: Colors.white),
