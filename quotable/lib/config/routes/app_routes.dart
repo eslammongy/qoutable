@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/single_quote_screen.dart';
+import 'package:quotable/features/categories/presentation/views/screens/category_quotes_screen.dart';
 
 abstract class AppRouter {
   static String homeScreen = '/homeScreen';
@@ -26,13 +27,14 @@ abstract class AppRouter {
           );
         },
       ),
-      /*  GoRoute(
+      GoRoute(
         path: quotesOfCategoryScreen,
         builder: (context, state) {
-        final categoryName = state.extra;
-        return  const QuotesOfCategoryScreen();
+          final categoryName = state.extra;
+          return const CategoryQuotesScreen();
         },
       ),
+      /* 
       GoRoute(
         path: quotesOfAuthorScreen,
         builder: (context, state) {
