@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const pubBoxDecoration = BoxDecoration(
-  borderRadius: BorderRadius.all(Radius.circular(12)),
+  borderRadius: BorderRadius.all(Radius.circular(16)),
   gradient: LinearGradient(
     colors: [
       Color(0xFF5F20F1),

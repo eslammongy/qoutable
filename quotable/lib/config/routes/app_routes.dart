@@ -2,13 +2,14 @@ import 'package:go_router/go_router.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/single_quote_screen.dart';
+import 'package:quotable/features/authors/presentation/views/screens/author_quotes_screen.dart';
 import 'package:quotable/features/categories/presentation/views/screens/category_quotes_screen.dart';
 
 abstract class AppRouter {
   static String homeScreen = '/homeScreen';
   static String singleQuoteScreen = '/singleQuoteScreen';
-  static String quotesOfAuthorScreen = '/quotesOfAuthorScreen';
-  static String quotesOfCategoryScreen = '/quotesOfCategoryScreen';
+  static String authorQuotesScreen = '/authorQuotesScreen';
+  static String categoryQuotesScreen = '/categoryQuotesScreen';
 
   static GoRouter appRoutes() {
     return GoRouter(routes: [
@@ -28,21 +29,19 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
-        path: quotesOfCategoryScreen,
+        path: categoryQuotesScreen,
         builder: (context, state) {
           final categoryName = state.extra;
           return const CategoryQuotesScreen();
         },
       ),
-      /* 
       GoRoute(
-        path: quotesOfAuthorScreen,
+        path: authorQuotesScreen,
         builder: (context, state) {
-        final authorName = state.extra;
-        return  const QuotesOfCAuthorScreen();
+          final authorName = state.extra;
+          return const AuthorQuotesScreen();
         },
       ),
-     */
     ]);
   }
 }

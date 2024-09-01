@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_font_toggles.dart';

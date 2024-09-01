@@ -19,7 +19,7 @@ class CategoriesList extends StatelessWidget {
         return InkWell(
             onTap: () {
               GoRouter.of(context).push(
-                AppRouter.quotesOfCategoryScreen,
+                AppRouter.categoryQuotesScreen,
               );
             },
             borderRadius: BorderRadius.circular(16),
