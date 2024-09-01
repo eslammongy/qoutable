@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_event.dart';
@@ -28,7 +29,7 @@ class QuoteThemeToggles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Theme",
+              themeTxt,
               style: theme.textTheme.titleMedium
                   ?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 1.2),
             ),

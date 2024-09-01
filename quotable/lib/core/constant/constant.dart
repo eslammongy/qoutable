@@ -7,14 +7,16 @@ const String randomLabel = "Random";
 const String categoriesLabel = "Categories";
 const String bookMarkLabel = "BookMark";
 const String authorsLabel = "Authors";
+const String fontTxt = "Font";
+const String themeTxt = "Theme";
 
 const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";
 const categoryQuotesEndpoint = "/categories";
 const authorsEndpoint = "/authors";
 
-TextStyle kanitFontStyle = GoogleFonts.kanit();
-TextStyle robotoFontStyle = GoogleFonts.roboto();
+TextStyle montserratFontStyle = GoogleFonts.montserrat();
+TextStyle robotoMonoFontStyle = GoogleFonts.robotoMono();
 TextStyle cairoFontStyle = GoogleFonts.cairo();
 TextStyle robotoSlabFontStyle = GoogleFonts.robotoSlab();
-TextStyle loraFontStyle = GoogleFonts.lora();
+TextStyle nerkoOneFontStyle = GoogleFonts.nerkoOne();

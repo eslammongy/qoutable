@@ -12,13 +12,13 @@ abstract class AppRouter {
   static GoRouter appRoutes() {
     return GoRouter(routes: [
       GoRoute(
-        path: homeScreen,
+        path: '/',
         builder: (context, state) {
           return const HomeScreen();
         },
       ),
       GoRoute(
-        path: '/',
+        path: singleQuoteScreen,
         builder: (context, state) {
           final quote = fakeQuote();
           return SingleQuoteScreen(

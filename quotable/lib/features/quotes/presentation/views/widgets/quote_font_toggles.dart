@@ -7,11 +7,11 @@ import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quo
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_state.dart';
 
 final quoteFontStyles = [
-  robotoFontStyle,
-  kanitFontStyle,
+  montserratFontStyle,
+  robotoMonoFontStyle,
   cairoFontStyle,
   robotoSlabFontStyle,
-  loraFontStyle,
+  nerkoOneFontStyle,
 ];
 
 class QuoteFontToggles extends StatelessWidget {
@@ -28,7 +28,7 @@ class QuoteFontToggles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Font",
+              fontTxt,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -102,8 +102,8 @@ class QuoteFontToggles extends StatelessWidget {
                   color: isSelected ? Colors.grey : Colors.transparent)),
           child: Center(
             child: Text(
-              "Font",
-              style: style.copyWith(fontSize: 18),
+              fontTxt,
+              style: style.copyWith(fontSize: 16),
             ),
           ),
         ),

@@ -22,7 +22,7 @@ class SingleQuoteScreen extends StatelessWidget {
         body: BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
           builder: (context, state) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 children: [
                   const SizedBox(
