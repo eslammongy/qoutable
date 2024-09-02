@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/single_quote_screen.dart';
@@ -22,7 +23,7 @@ abstract class AppRouter {
       GoRoute(
         path: singleQuoteScreen,
         builder: (context, state) {
-          final quote = fakeQuote();
+          final quote = state.extra as QuoteEntity;
           return SingleQuoteScreen(
             quote: quote,
           );

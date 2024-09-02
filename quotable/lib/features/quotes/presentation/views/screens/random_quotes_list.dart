@@ -46,16 +46,10 @@ class RandomQuotesList extends StatelessWidget {
                   AppAssets.responseErrorImg,
                   width: 200,
                 ),
-          InkWell(
-            onTap: () {
-              GoRouter.of(context)
-                  .push(AppRouter.singleQuoteScreen, extra: fakeQuote());
-            },
-            child: Text(
-              "${state.error?.message}",
-              textAlign: TextAlign.center,
-              style: TextStyles.font16SemiBold,
-            ),
+          Text(
+            "${state.error?.message}",
+            textAlign: TextAlign.center,
+            style: TextStyles.font16SemiBold,
           ),
         ],
       ),
