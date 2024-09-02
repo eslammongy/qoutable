@@ -6,7 +6,6 @@ import 'package:quotable/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
-import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
 
 class QuoteListItem extends StatelessWidget {
   const QuoteListItem({
@@ -19,8 +18,7 @@ class QuoteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context)
-            .push(AppRouter.singleQuoteScreen, extra: fakeQuote());
+        GoRouter.of(context).push(AppRouter.singleQuoteScreen, extra: quote);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
@@ -88,12 +86,12 @@ class QuoteListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         border: Border(
           top: BorderSide(
-              color: context.theme.appColors.primary, width: 2.0), // Top border
-          left: BorderSide(
+              color: context.theme.appColors.primary, width: 1.0), // Top border
+          right: BorderSide(
               color: context.theme.appColors.primary,
               width: 2.0), // Left border
           bottom: BorderSide.none, // No bottom border
-          right: BorderSide.none, // No right border
+          left: BorderSide.none, // No right border
         ),
       );
 }

@@ -15,7 +15,7 @@ const String saveAsPng = "Save As PNG";
 
 const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";
-const categoryQuotesEndpoint = "/categories";
+const tagsEndpoint = "/tags";
 const authorsEndpoint = "/authors";
 
 TextStyle montserratFontStyle = GoogleFonts.montserrat();

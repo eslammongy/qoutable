@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 const pubBoxDecoration = BoxDecoration(
@@ -25,4 +26,23 @@ BoxDecoration customizedDecorationBox(List<Color> colors,
       stops: const [0.0, 1.0], // Optional, controls the distribution of colors
     ),
   );
+}
+
+/// Throws a DioException with a connection error type. This is used to
+/// simulate a network connection error when fetching remote data.
+DioException noConnection() => DioException(
+      requestOptions: RequestOptions(),
+      type: DioExceptionType.connectionError,
+    );
+
+/// Throws a DioException with a Bad Response type. This is used to
+/// simulate a bad response error when fetching remote data.
+DioException badResponse(Response response) {
+  final dioError = DioException(
+    requestOptions: response.requestOptions,
+    error: response.statusMessage,
+    type: DioExceptionType.badResponse,
+    response: response,
+  );
+  return dioError;
 }

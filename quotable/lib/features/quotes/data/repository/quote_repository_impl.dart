@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/data/models/quote.dart';
@@ -29,20 +30,5 @@ class QuoteRepositoryImpl implements QuoteRepository {
     } on DioException catch (error) {
       return DataFailed(ServerFailure.handleError(error));
     }
-  }
-
-  DioException noConnection() => DioException(
-        requestOptions: RequestOptions(),
-        type: DioExceptionType.connectionError,
-      );
-
-  DioException badResponse(Response response) {
-    final dioError = DioException(
-      requestOptions: response.requestOptions,
-      error: response.statusMessage,
-      type: DioExceptionType.badResponse,
-      response: response,
-    );
-    return dioError;
   }
 }
