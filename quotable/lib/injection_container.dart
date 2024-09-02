@@ -10,6 +10,7 @@ import 'package:quotable/features/quotes/data/repository/quote_repository_impl.d
 import 'package:quotable/features/home/data/repository/app_settings_repository_impl.dart';
 import 'package:quotable/features/quotes/domain/usecaces/fetch_remote_quote_usecase.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
+import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -47,4 +48,5 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<RemoteQuoteBloc>(() => RemoteQuoteBloc(getIt()));
   getIt.registerFactory<AppSettingsBloc>(
       () => AppSettingsBloc(changeAppTheme: getIt()));
+  getIt.registerFactory<DecorateQuoteBloc>(() => DecorateQuoteBloc());
 }

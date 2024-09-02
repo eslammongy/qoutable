@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
+import 'package:quotable/core/error/api_error_msg.dart';
+import 'package:quotable/config/routes/app_routes.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
@@ -19,7 +21,7 @@ class RandomQuotesList extends StatelessWidget {
         if (state is RemoteQuotesSuccess) {
           return _displayQuoteListView(state.quotes!);
         } else if (state is RemoteQuoteFailed) {
-          return _displayErrorWidget(state);
+          return _displayErrorWidget(context, state);
         } else {
           return _displayLoadingWidget();
         }
@@ -27,7 +29,7 @@ class RandomQuotesList extends StatelessWidget {
     );
   }
 
-  Center _displayErrorWidget(RemoteQuoteFailed state) {
+  Center _displayErrorWidget(BuildContext context, RemoteQuoteState state) {
     final error = state.error as ServerFailure;
     return Center(
         child: Padding(
@@ -76,7 +78,10 @@ class RandomQuotesList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context)
+                  .push(AppRouter.singleQuoteScreen, extra: quotes[index]);
+            },
             borderRadius: BorderRadius.circular(16),
             child: QuoteListItem(
               quote: quotes[index],
@@ -85,3 +90,9 @@ class RandomQuotesList extends StatelessWidget {
         });
   }
 }
+
+fakeQuote() => const QuoteEntity(
+    id: "9000i00jkmk",
+    author: "Eslam Mongy",
+    content:
+        "Faith, as well intentioned as it may be, must be built on facts, not fiction--faith in fiction is a damnable false hope.");

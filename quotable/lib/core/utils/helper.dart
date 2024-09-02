@@ -13,3 +13,16 @@ const pubBoxDecoration = BoxDecoration(
     stops: [0.0, 0.5, 1.0], // Optional, controls the distribution of colors
   ),
 );
+
+BoxDecoration customizedDecorationBox(List<Color> colors,
+    {double radius = 12}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.all(Radius.circular(radius)),
+    gradient: LinearGradient(
+      colors: colors,
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: const [0.0, 1.0], // Optional, controls the distribution of colors
+    ),
+  );
+}
