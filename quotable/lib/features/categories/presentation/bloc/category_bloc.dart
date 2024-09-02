@@ -1,26 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/resources/data_state.dart';
-import 'package:quotable/features/quotes/domain/usecaces/fetch_remote_quote_usecase.dart';
-import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
-import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_state.dart';
+import 'package:quotable/features/categories/presentation/bloc/category_event.dart';
+import 'package:quotable/features/categories/presentation/bloc/category_state.dart';
+import 'package:quotable/features/categories/domain/usecaces/fetch_categories_usecase.dart';
 
-class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
-  final FetchRemoteQuotesUseCase fetchQuotesUseCase;
-  RemoteQuoteBloc(this.fetchQuotesUseCase) : super(const RemoteQuoteLoading()) {
-    on<FetchRemoteQuotes>(onFetchRemoteQuoteUseCase);
+class CategoriesBloc extends Bloc<CategoriesEvents, CategoriesStates> {
+  final FetchCategoriesUseCase fetchRemoteCategories;
+  CategoriesBloc(this.fetchRemoteCategories)
+      : super(const CategoriesStateLoading()) {
+    on<FetchRemoteCategoriesEvent>(onFetchRemoteCategories);
   }
 
-  onFetchRemoteQuoteUseCase(
-    FetchRemoteQuotes event,
-    Emitter<RemoteQuoteState> emit,
+  onFetchRemoteCategories(
+    FetchRemoteCategoriesEvent event,
+    Emitter<CategoriesStates> emit,
   ) async {
-    final dataState = await fetchQuotesUseCase();
+    final dataState = await fetchRemoteCategories();
 
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      emit(RemoteQuotesSuccess(quotes: dataState.data!));
+      emit(CategoriesStateSuccess(categories: dataState.data!));
     }
     if (dataState is DataFailed) {
-      emit(RemoteQuoteFailed(error: dataState.error!));
+      emit(CategoryStateFailed(error: dataState.error!));
     }
   }
 }

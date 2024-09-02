@@ -6,10 +6,15 @@ import 'package:quotable/features/home/domain/repository/app_settings_repo.dart'
 import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_api_services.dart';
 import 'package:quotable/features/quotes/domain/repository/quote_repository.dart';
+import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/quotes/data/repository/quote_repository_impl.dart';
+import 'package:quotable/features/categories/domain/repository/category_repository.dart';
+import 'package:quotable/features/categories/data/datasource/category_api_services.dart';
 import 'package:quotable/features/home/data/repository/app_settings_repository_impl.dart';
 import 'package:quotable/features/quotes/domain/usecaces/fetch_remote_quote_usecase.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
+import 'package:quotable/features/categories/domain/usecaces/fetch_categories_usecase.dart';
+import 'package:quotable/features/categories/data/repository/category_repository_impl.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -25,8 +30,14 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<QuoteApiServices>(
       () => QuoteApiServices(dio: getIt()));
 
+  getIt.registerLazySingleton<CategoryApiServices>(
+      () => CategoryApiServices(dio: getIt()));
+
   getIt.registerLazySingleton<QuoteRepository>(
       () => QuoteRepositoryImpl(quoteApiServices: getIt()));
+
+  getIt.registerLazySingleton<CategoryRepository>(
+      () => CategoryRepositoryImpl(apiService: getIt()));
 
   getIt.registerLazySingleton<AppSettingsRepo>(
       () => AppSettingsRepositoryImpl());
@@ -35,6 +46,12 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<FetchRemoteQuotesUseCase>(
     () => FetchRemoteQuotesUseCase(
       quoteRepository: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<FetchCategoriesUseCase>(
+    () => FetchCategoriesUseCase(
+      categoryRepository: getIt(),
     ),
   );
 
@@ -48,5 +65,6 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<RemoteQuoteBloc>(() => RemoteQuoteBloc(getIt()));
   getIt.registerFactory<AppSettingsBloc>(
       () => AppSettingsBloc(changeAppTheme: getIt()));
+  getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
   getIt.registerFactory<DecorateQuoteBloc>(() => DecorateQuoteBloc());
 }

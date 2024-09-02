@@ -21,7 +21,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
     try {
       final response = await apiService.getCategories();
       if (response.statusCode == HttpStatus.ok) {
-        final categoryJson = response.data['results'] as List;
+        final categoryJson = response.data as List;
         final categories =
             categoryJson.map((json) => CategoryModel.fromMap(json)).toList();
         return DataSuccess(categories);

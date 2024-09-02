@@ -1,5 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:quotable/core/error/api_failure.dart';
+import 'package:quotable/config/theme/text_style.dart';
+import 'package:quotable/core/constant/app_assets.dart';
+import 'package:quotable/core/error/api_error_msg.dart';
+import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_state.dart';
 
 const pubBoxDecoration = BoxDecoration(
   borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -45,4 +50,45 @@ DioException badResponse(Response response) {
     response: response,
   );
   return dioError;
+}
+
+Widget displayErrorWidget(BuildContext context, Failure failure) {
+  return Center(
+      child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        failure.message == noInternetError
+            ? Image.asset(
+                AppAssets.noWifiImg,
+                width: 200,
+              )
+            : Image.asset(
+                AppAssets.responseErrorImg,
+                width: 200,
+              ),
+        Text(
+          "${failure.message}",
+          textAlign: TextAlign.center,
+          style: TextStyles.font16SemiBold,
+        ),
+      ],
+    ),
+  ));
+}
+
+Center displayLoadingWidget({String loadingMsg = "loading..."}) {
+  return Center(
+      child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const CircularProgressIndicator.adaptive(),
+      Text(
+        loadingMsg,
+        textAlign: TextAlign.center,
+        style: TextStyles.font16SemiBold,
+      ),
+    ],
+  ));
 }

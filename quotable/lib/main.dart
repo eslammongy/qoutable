@@ -7,6 +7,7 @@ import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
+import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
@@ -34,6 +35,9 @@ class Quotable extends StatelessWidget {
               create: (context) => getIt()..add(const FetchRemoteQuotes()),
             ),
             BlocProvider<AppSettingsBloc>(
+              create: (context) => getIt(),
+            ),
+            BlocProvider<CategoriesBloc>(
               create: (context) => getIt(),
             ),
           ],

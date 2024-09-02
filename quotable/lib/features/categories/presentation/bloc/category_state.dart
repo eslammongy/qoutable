@@ -2,25 +2,25 @@ import 'package:equatable/equatable.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/features/categories/domain/entities/category.dart';
 
-abstract class CategoryStates extends Equatable {
+abstract class CategoriesStates extends Equatable {
   final List<CategoryEntity>? categories;
   final Failure? error;
 
-  const CategoryStates({this.categories, this.error});
+  const CategoriesStates({this.categories, this.error});
 
   @override
   List<Object> get props => [categories!, error!];
 }
 
-class CategoryStateLoading extends CategoryStates {
-  const CategoryStateLoading();
+class CategoriesStateLoading extends CategoriesStates {
+  const CategoriesStateLoading();
 }
 
-class CategoryStateSuccess extends CategoryStates {
-  const CategoryStateSuccess({required List<CategoryEntity> categories})
+class CategoriesStateSuccess extends CategoriesStates {
+  const CategoriesStateSuccess({required List<CategoryEntity> categories})
       : super(categories: categories);
 }
 
-class CategoryStateFailed extends CategoryStates {
+class CategoryStateFailed extends CategoriesStates {
   const CategoryStateFailed({required Failure error}) : super(error: error);
 }

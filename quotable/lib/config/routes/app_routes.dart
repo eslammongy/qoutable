@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
-import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/single_quote_screen.dart';
 import 'package:quotable/features/authors/presentation/views/screens/author_quotes_screen.dart';
 import 'package:quotable/features/categories/presentation/views/screens/category_quotes_screen.dart';

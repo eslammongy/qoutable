@@ -1,7 +1,7 @@
-abstract class CategoryEvents {
-  const CategoryEvents();
+abstract class CategoriesEvents {
+  const CategoriesEvents();
 }
 
-class FetchRemoteCategories extends CategoryEvents {
-  const FetchRemoteCategories();
+class FetchRemoteCategoriesEvent extends CategoriesEvents {
+  const FetchRemoteCategoriesEvent();
 }
