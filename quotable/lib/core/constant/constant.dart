@@ -9,6 +9,9 @@ const String bookMarkLabel = "BookMark";
 const String authorsLabel = "Authors";
 const String fontTxt = "Font";
 const String themeTxt = "Theme";
+const String shareAsText = "Share As Text";
+const String shareAsPng = "Share As PNG";
+const String saveAsPng = "Save As PNG";
 
 const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";

@@ -12,6 +12,7 @@ class CustomQuoteBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
       child: Card(
         color: hasBorder ? Colors.transparent : context.theme.appColors.primary,
         shape: RoundedRectangleBorder(
@@ -23,7 +24,7 @@ class CustomQuoteBtn extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             text,
-            style: TextStyles.font18Bold,
+            style: TextStyles.font15Medium,
           ),
         ),
       ),

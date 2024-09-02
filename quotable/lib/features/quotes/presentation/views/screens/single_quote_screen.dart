@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quotable/config/theme/app_theme.dart';
-import 'package:quotable/config/theme/text_style.dart';
+import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_action_btn.dart';
@@ -48,11 +47,11 @@ class SingleQuoteScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomQuoteBtn(
-                        text: "Share As PNG",
+                        text: shareAsPng,
                         onTap: () {},
                       ),
                       CustomQuoteBtn(
-                        text: "Share As Text",
+                        text: shareAsText,
                         onTap: () {},
                       ),
                     ],
@@ -61,7 +60,7 @@ class SingleQuoteScreen extends StatelessWidget {
                     height: 10,
                   ),
                   CustomQuoteBtn(
-                    text: "Save As PNG",
+                    text: saveAsPng,
                     hasBorder: false,
                     onTap: () {},
                   ),

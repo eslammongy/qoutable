@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
@@ -30,6 +31,8 @@ AppBar singleViewAppBar(BuildContext context, {required String title}) {
         ),
       ],
     ),
-    leading: const Icon(Icons.arrow_back_ios_rounded),
+    leading: InkWell(
+        onTap: () => GoRouter.of(context).pop(),
+        child: const Icon(Icons.arrow_back_ios_rounded)),
   );
 }
