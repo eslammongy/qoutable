@@ -4,7 +4,6 @@ import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/core/error/api_error_msg.dart';
-import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_state.dart';
 
 const pubBoxDecoration = BoxDecoration(
   borderRadius: BorderRadius.all(Radius.circular(16)),

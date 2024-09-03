@@ -14,7 +14,9 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CategoriesBloc, CategoriesStates>(
       bloc: BlocProvider.of<CategoriesBloc>(context)
-        ..add(const FetchRemoteCategoriesEvent()),
+        ..add(
+          const FetchRemoteCategoriesEvent(),
+        ),
       listener: (context, state) {},
       builder: (context, state) {
         if (state is CategoriesStateSuccess) {

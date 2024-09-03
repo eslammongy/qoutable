@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
+import 'package:quotable/features/categories/domain/entities/category.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/single_quote_screen.dart';
 import 'package:quotable/features/authors/presentation/views/screens/author_quotes_screen.dart';
@@ -31,8 +32,8 @@ abstract class AppRouter {
       GoRoute(
         path: categoryQuotesScreen,
         builder: (context, state) {
-          final categoryName = state.extra;
-          return const CategoryQuotesScreen();
+          final category = state.extra as CategoryEntity;
+          return CategoryQuotesScreen(category: category);
         },
       ),
       GoRoute(

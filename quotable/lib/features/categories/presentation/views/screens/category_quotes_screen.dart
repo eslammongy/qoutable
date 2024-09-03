@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
-import 'package:quotable/features/quotes/presentation/views/widgets/quote_list_item.dart';
+import 'package:quotable/features/categories/domain/entities/category.dart';
 import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
+import 'package:quotable/features/categories/presentation/views/widgets/category_quotes_list.dart';
 
 // Sample list of items related to the category
-final List<QuoteEntity> items = [
+final List<QuoteEntity> quotes = [
   fakeQuote(),
   fakeQuote(),
   fakeQuote(),
@@ -27,7 +29,8 @@ final List<QuoteEntity> items = [
 ];
 
 class CategoryQuotesScreen extends StatelessWidget {
-  const CategoryQuotesScreen({super.key});
+  const CategoryQuotesScreen({super.key, required this.category});
+  final CategoryEntity category;
 
   @override
   Widget build(BuildContext context) {
@@ -47,24 +50,26 @@ class CategoryQuotesScreen extends StatelessWidget {
                     bottomLeft: Radius.circular(12),
                     bottomRight: Radius.circular(12))),
             scrolledUnderElevation: 2,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('Quotes in Productivity'),
-              centerTitle: true,
-              background: DecoratedBox(decoration: pubBoxDecoration),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final item = items[index];
-                  return QuoteListItem(quote: item);
-                },
-                childCount: items.length,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                        text: 'Quotes in ${category.name}\n',
+                        style: TextStyles.font13Regular),
+                    TextSpan(
+                      text: '(${category.quoteCount} Quotes)',
+                      style: TextStyles.font13Regular,
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
               ),
+              centerTitle: true,
+              background: const DecoratedBox(decoration: pubBoxDecoration),
             ),
           ),
+          CategoryQuotesList(category: category)
         ],
       ),
     );

@@ -16,6 +16,7 @@ import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_b
 import 'package:quotable/features/categories/domain/usecaces/fetch_categories_usecase.dart';
 import 'package:quotable/features/categories/data/repository/category_repository_impl.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
+import 'package:quotable/features/categories/domain/usecaces/fetch_category_quotes_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -54,6 +55,11 @@ Future<void> initializeDependencies() async {
       categoryRepository: getIt(),
     ),
   );
+  getIt.registerLazySingleton<FetchCategoryQuotesUseCase>(
+    () => FetchCategoryQuotesUseCase(
+      categoryRepository: getIt(),
+    ),
+  );
 
   getIt.registerLazySingleton<ChangeAppThemeUseCase>(
     () => ChangeAppThemeUseCase(
@@ -63,8 +69,14 @@ Future<void> initializeDependencies() async {
 
   //Blocs
   getIt.registerFactory<RemoteQuoteBloc>(() => RemoteQuoteBloc(getIt()));
-  getIt.registerFactory<AppSettingsBloc>(
-      () => AppSettingsBloc(changeAppTheme: getIt()));
-  getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
+  getIt.registerFactory<AppSettingsBloc>(() => AppSettingsBloc(
+        changeAppTheme: getIt(),
+      ));
+
+  getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(
+        getIt(),
+        getIt(),
+      ));
+
   getIt.registerFactory<DecorateQuoteBloc>(() => DecorateQuoteBloc());
 }
