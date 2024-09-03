@@ -35,7 +35,7 @@ class QuoteDecoratedBox extends StatelessWidget {
               children: [
                 const Align(
                   alignment: Alignment.topLeft,
-                  child: Icon(FontAwesomeIcons.quoteLeft),
+                  child: Icon(FontAwesomeIcons.quoteLeft, color: Colors.white),
                 ),
                 Expanded(
                   child: Padding(
@@ -47,8 +47,8 @@ class QuoteDecoratedBox extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 6,
                         textAlign: TextAlign.center,
-                        style:
-                            decoratedBloc.quoteTextStyle.copyWith(fontSize: 22),
+                        style: decoratedBloc.quoteTextStyle
+                            .copyWith(fontSize: 22, color: Colors.white),
                       ),
                     ),
                   ),
@@ -72,7 +72,8 @@ class QuoteDecoratedBox extends StatelessWidget {
                     ),
                     const Align(
                       alignment: Alignment.bottomRight,
-                      child: Icon(FontAwesomeIcons.quoteRight),
+                      child: Icon(FontAwesomeIcons.quoteRight,
+                          color: Colors.white),
                     ),
                   ],
                 ),

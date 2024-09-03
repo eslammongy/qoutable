@@ -4,10 +4,15 @@ import 'package:quotable/config/theme/text_style.dart';
 
 class CustomQuoteBtn extends StatelessWidget {
   const CustomQuoteBtn(
-      {super.key, this.onTap, required this.text, this.hasBorder = true});
+      {super.key,
+      this.onTap,
+      required this.text,
+      this.hasBorder = true,
+      this.textColor = Colors.white});
   final Function()? onTap;
   final String text;
   final bool hasBorder;
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -24,7 +29,7 @@ class CustomQuoteBtn extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             text,
-            style: TextStyles.font15Medium,
+            style: TextStyles.font15Medium.copyWith(color: textColor),
           ),
         ),
       ),
