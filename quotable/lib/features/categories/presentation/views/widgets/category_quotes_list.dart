@@ -24,12 +24,17 @@ class CategoryQuotesList extends StatelessWidget {
         if (state is CategoriesStateFetchQuotesSuccess) {
           return _displayCategoryQuotes(state.quotes ?? []);
         } else if (state is CategoryStateFailed) {
-          return SliverToBoxAdapter(
-            child: displayErrorWidget(context, state.error!),
+          return SliverFillRemaining(
+            child: Align(
+                alignment: Alignment.center,
+                child: displayErrorWidget(context, state.error!)),
           );
         } else {
-          return SliverToBoxAdapter(
-            child: displayLoadingWidget(loadingMsg: 'Loading quotes...'),
+          return SliverFillRemaining(
+            child: Align(
+                alignment: Alignment.center,
+                child: displayLoadingWidget(
+                    loadingMsg: 'Loading category quotes...')),
           );
         }
       },

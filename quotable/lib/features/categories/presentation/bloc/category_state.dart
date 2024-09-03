@@ -14,6 +14,9 @@ abstract class CategoriesStates extends Equatable {
   List<Object?> get props => [categories, quotes, error];
 }
 
+class CategoriesStateInit extends CategoriesStates {
+  const CategoriesStateInit();
+}
 class CategoriesStateLoading extends CategoriesStates {
   const CategoriesStateLoading();
 }

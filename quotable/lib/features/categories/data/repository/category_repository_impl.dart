@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';
@@ -46,7 +45,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final response = await apiService.getCategoryQuotes(tag: tag!);
       if (response.statusCode == HttpStatus.ok) {
         final quotesJson = response.data['results'] as List;
-        debugPrint("quotesJson: $quotesJson");
+
         final quotes =
             quotesJson.map((json) => QuoteModel.fromJson(json)).toList();
         return DataSuccess(quotes);

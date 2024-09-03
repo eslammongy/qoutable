@@ -1,32 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
-import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/categories/domain/entities/category.dart';
-import 'package:quotable/features/quotes/presentation/views/screens/random_quotes_list.dart';
+import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/categories/presentation/views/widgets/category_quotes_list.dart';
-
-// Sample list of items related to the category
-final List<QuoteEntity> quotes = [
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-  fakeQuote(),
-];
 
 class CategoryQuotesScreen extends StatelessWidget {
   const CategoryQuotesScreen({super.key, required this.category});
@@ -34,6 +14,7 @@ class CategoryQuotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
     return Scaffold(
       backgroundColor: context.theme.appColors.background,
       body: CustomScrollView(
@@ -41,10 +22,10 @@ class CategoryQuotesScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             expandedHeight: 200.0,
-            floating: false,
+            floating: true,
             pinned: true,
             backgroundColor: context.theme.appColors.surface,
-            elevation: 2,
+            elevation: 4,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(12),
@@ -56,7 +37,7 @@ class CategoryQuotesScreen extends StatelessWidget {
                   children: [
                     TextSpan(
                         text: 'Quotes in ${category.name}\n',
-                        style: TextStyles.font13Regular),
+                        style: TextStyles.font14SemiBold),
                     TextSpan(
                       text: '(${category.quoteCount} Quotes)',
                       style: TextStyles.font13Regular,
@@ -67,6 +48,17 @@ class CategoryQuotesScreen extends StatelessWidget {
               ),
               centerTitle: true,
               background: const DecoratedBox(decoration: pubBoxDecoration),
+            ),
+            leading: SizedBox(
+              height: 45,
+              width: 45,
+              child: InkWell(
+                  onTap: () {
+                    categoryBloc.quotes.clear();
+                    GoRouter.of(context).pop();
+                  },
+                  borderRadius: BorderRadius.circular(100),
+                  child: const Icon(Icons.arrow_back_ios_rounded)),
             ),
           ),
           CategoryQuotesList(category: category)

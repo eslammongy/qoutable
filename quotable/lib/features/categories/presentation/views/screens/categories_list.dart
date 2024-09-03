@@ -12,15 +12,16 @@ class CategoriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
     return BlocConsumer<CategoriesBloc, CategoriesStates>(
-      bloc: BlocProvider.of<CategoriesBloc>(context)
-        ..add(
-          const FetchRemoteCategoriesEvent(),
-        ),
+      bloc: categoryBloc..add(const FetchRemoteCategoriesEvent()),
       listener: (context, state) {},
       builder: (context, state) {
-        if (state is CategoriesStateSuccess) {
-          return CategoriesGridView(categories: state.categories ?? []);
+        if (state is CategoriesStateSuccess ||
+            categoryBloc.categories.isNotEmpty) {
+          return CategoriesGridView(
+            categories: state.categories ?? categoryBloc.categories,
+          );
         } else if (state is CategoryStateFailed) {
           return displayErrorWidget(context, state.error!);
         } else {
