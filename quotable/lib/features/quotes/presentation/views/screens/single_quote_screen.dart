@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/core/utils/image_capture.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_action_btn.dart';
@@ -64,7 +64,10 @@ class SingleQuoteScreen extends StatelessWidget {
                     text: saveAsPng,
                     hasBorder: false,
                     onTap: () async {
-                      await captureWidgetAsPng(context, quoteAnimatedBoxKey);
+                      await ImageCapture.captureAsPng(
+                        context,
+                        quoteAnimatedBoxKey,
+                      );
                     },
                   ),
                 ],
