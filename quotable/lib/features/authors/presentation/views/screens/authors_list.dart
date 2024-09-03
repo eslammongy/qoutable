@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/text_style.dart';
+import 'package:quotable/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,7 +17,9 @@ class AuthorsList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       itemBuilder: (context, index) {
         return InkWell(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.authorQuotesScreen);
+            },
             borderRadius: BorderRadius.circular(16),
             child: Padding(
               padding: const EdgeInsets.all(4.0),

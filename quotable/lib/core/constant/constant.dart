@@ -12,10 +12,11 @@ const String themeTxt = "Theme";
 const String shareAsText = "Share As Text";
 const String shareAsPng = "Share As PNG";
 const String saveAsPng = "Save As PNG";
+const String loadingMsg = "please waiting, data is loaded...";
 
 const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";
-const categoryQuotesEndpoint = "/categories";
+const tagsEndpoint = "/tags";
 const authorsEndpoint = "/authors";
 
 TextStyle montserratFontStyle = GoogleFonts.montserrat();
