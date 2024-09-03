@@ -37,10 +37,10 @@ class CategoryQuotesScreen extends StatelessWidget {
                   children: [
                     TextSpan(
                         text: 'Quotes in ${category.name}\n',
-                        style: TextStyles.font14SemiBold),
+                        style: TextStyles.font14SemiBold.copyWith(color: Colors.white), ),
                     TextSpan(
                       text: '(${category.quoteCount} Quotes)',
-                      style: TextStyles.font13Regular,
+                      style: TextStyles.font13Regular.copyWith(color: Colors.white),
                     ),
                   ],
                 ),
@@ -58,7 +58,7 @@ class CategoryQuotesScreen extends StatelessWidget {
                     GoRouter.of(context).pop();
                   },
                   borderRadius: BorderRadius.circular(100),
-                  child: const Icon(Icons.arrow_back_ios_rounded)),
+                  child: const Icon(Icons.arrow_back_ios_rounded, color: Colors.white,)),
             ),
           ),
           CategoryQuotesList(category: category)

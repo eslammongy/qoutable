@@ -18,55 +18,7 @@ class CategoriesGridView extends StatelessWidget {
       itemCount: categories.length,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       itemBuilder: (context, index) {
-        return InkWell(
-            onTap: () {
-              GoRouter.of(context).push(
-                AppRouter.categoryQuotesScreen,
-                extra: categories[index],
-              );
-            },
-            borderRadius: BorderRadius.circular(16),
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SizedBox(
-                height: 100.h,
-                width: 60.w,
-                child: DecoratedBox(
-                  decoration: pubBoxDecoration,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FontAwesomeIcons.layerGroup,
-                          size: 35,
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          categories[index].name ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          style: TextStyles.font18Bold
-                              .copyWith(color: Colors.white),
-                        ),
-                        Text(
-                          "${categories[index].quoteCount}",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          style: TextStyles.font14Regular
-                              .copyWith(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ));
+        return _buildCategoryGridItem(context, index);
       },
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -75,5 +27,58 @@ class CategoriesGridView extends StatelessWidget {
         crossAxisSpacing: 10,
       ),
     );
+  }
+
+  InkWell _buildCategoryGridItem(BuildContext context, int index) {
+    return InkWell(
+        onTap: () {
+          GoRouter.of(context).push(
+            AppRouter.categoryQuotesScreen,
+            extra: categories[index],
+          );
+        },
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: SizedBox(
+            height: 100.h,
+            width: 60.w,
+            child: DecoratedBox(
+              decoration: pubBoxDecoration,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      FontAwesomeIcons.layerGroup,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      categories[index].name ?? '',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyles.font18Bold.copyWith(color: Colors.white),
+                    ),
+                    Text(
+                      "${categories[index].quoteCount}",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.font14Regular
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
