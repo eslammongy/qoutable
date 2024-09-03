@@ -14,4 +14,14 @@ class AuthorsApiService {
       rethrow;
     }
   }
+
+  Future<Response<dynamic>> getAllAuthorQuotes(String author) async {
+    try {
+      final path = "$quoteBaseUrl$quotesEndpoint?author='$author'";
+      final dioResponse = await dio.get(path);
+      return dioResponse;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -6,6 +6,7 @@ import 'package:quotable/injection_container.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quotable/features/authors/presentation/bloc/authors_bloc.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
 import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
@@ -38,6 +39,9 @@ class Quotable extends StatelessWidget {
               create: (context) => getIt(),
             ),
             BlocProvider<CategoriesBloc>(
+              create: (context) => getIt(),
+            ),
+            BlocProvider<AuthorsBloc>(
               create: (context) => getIt(),
             ),
           ],
