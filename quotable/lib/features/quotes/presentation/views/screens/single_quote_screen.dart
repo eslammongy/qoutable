@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
@@ -62,7 +63,9 @@ class SingleQuoteScreen extends StatelessWidget {
                   CustomQuoteBtn(
                     text: saveAsPng,
                     hasBorder: false,
-                    onTap: () {},
+                    onTap: () async {
+                      await captureWidgetAsPng(context, quoteAnimatedBoxKey);
+                    },
                   ),
                 ],
               ),
