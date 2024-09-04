@@ -12,6 +12,10 @@ abstract class RemoteQuoteState extends Equatable {
   List<Object> get props => [quotes!, error!];
 }
 
+class RemoteQuoteInitState extends RemoteQuoteState {
+  const RemoteQuoteInitState();
+}
+
 class RemoteQuoteLoading extends RemoteQuoteState {
   const RemoteQuoteLoading();
 }

@@ -5,12 +5,18 @@ import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/data/models/quote.dart';
 import 'package:quotable/core/utils/internet_checker_service.dart';
+import 'package:quotable/features/quotes/domain/entities/quote.dart';
+import 'package:quotable/features/quotes/data/datasource/quote_box_db.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_api_services.dart';
 import 'package:quotable/features/quotes/domain/repository/quote_repository.dart';
 
 class QuoteRepositoryImpl implements QuoteRepository {
   final QuoteApiServices quoteApiServices;
-  QuoteRepositoryImpl({required this.quoteApiServices});
+  final ObjectBoxDB objectBoxDB;
+  QuoteRepositoryImpl({
+    required this.quoteApiServices,
+    required this.objectBoxDB,
+  });
   @override
   Future<DataState<List<QuoteModel>>> fetchRemoteQuotes() async {
     if (!await InternetChecker.checkConnection()) {
@@ -29,6 +35,33 @@ class QuoteRepositoryImpl implements QuoteRepository {
       }
     } on DioException catch (error) {
       return DataFailed(ServerFailure.handleError(error));
+    }
+  }
+
+  @override
+  Future<List<QuoteEntity>> getFavoriteQuotes() async {
+    try {
+      return await objectBoxDB.getSavedQuotes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> saveQuoteLocally({required QuoteEntity quote}) async {
+    try {
+      objectBoxDB.saveQuoteLocally(quote: quote);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteQuoteLocally({required int id}) async {
+    try {
+      objectBoxDB.deleteSelectedQuote(id);
+    } catch (e) {
+      rethrow;
     }
   }
 }

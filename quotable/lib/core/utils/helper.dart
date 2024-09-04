@@ -54,32 +54,6 @@ DioException badResponse(Response response) {
   return dioError;
 }
 
-Widget displayErrorWidget(BuildContext context, Failure failure) {
-  return Center(
-      child: Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        failure.message == noInternetError
-            ? Image.asset(
-                AppAssets.noWifiImg,
-                width: 200,
-              )
-            : Image.asset(
-                AppAssets.responseErrorImg,
-                width: 200,
-              ),
-        Text(
-          "${failure.message}",
-          textAlign: TextAlign.center,
-          style: TextStyles.font16SemiBold,
-        ),
-      ],
-    ),
-  ));
-}
-
 Center displayLoadingWidget({String loadingMsg = "loading..."}) {
   return Center(
       child: Column(

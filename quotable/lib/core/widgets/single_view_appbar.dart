@@ -39,5 +39,18 @@ AppBar singleViewAppBar(BuildContext context, {required String title}) {
           borderRadius: BorderRadius.circular(100),
           child: const Icon(Icons.arrow_back_ios_rounded)),
     ),
+    actions: [
+      SizedBox(
+        height: 45,
+        width: 45,
+        child: InkWell(
+            onTap: () => GoRouter.of(context).pop(),
+            borderRadius: BorderRadius.circular(100),
+            child: const Icon(
+              Icons.bookmark_add_outlined,
+              size: 30,
+            )),
+      ),
+    ],
   );
 }
