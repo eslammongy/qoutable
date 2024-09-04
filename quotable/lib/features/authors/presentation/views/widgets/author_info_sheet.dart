@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +30,7 @@ class AuthorInfoBottomSheet extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                authorInfo,
+                  authorInfo,
                   style: TextStyles.font16SemiBold,
                 ),
               ],
@@ -63,7 +65,14 @@ class AuthorInfoBottomSheet extends StatelessWidget {
             CustomQuoteBtn(
               text: moreInfo,
               hasBorder: false,
-              onTap: () async {},
+              onTap: () async {
+                if (author.link == null) return;
+                final Uri url = Uri.parse(author.link!);
+                final bool canLaunchUrl = await launchUrl(url);
+                if (!canLaunchUrl && context.mounted) {
+                  displaySnackBar(context, "Could not launch $url");
+                }
+              },
             ),
           ],
         ),
