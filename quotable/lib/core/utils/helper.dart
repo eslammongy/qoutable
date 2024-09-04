@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
@@ -90,4 +91,25 @@ Center displayLoadingWidget({String loadingMsg = "loading..."}) {
       ),
     ],
   ));
+}
+
+/// displaying a customized snackbar
+void displaySnackBar(
+  BuildContext context,
+  String msg, {
+  bool hasError = false,
+}) {
+  final theme = context.theme;
+  final snackBar = SnackBar(
+    content: Text(
+      msg,
+      style: theme.textTheme.bodyMedium,
+    ),
+    margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    backgroundColor: hasError ? theme.appColors.error : theme.appColors.primary,
+    duration: const Duration(seconds: 1),
+    behavior: SnackBarBehavior.floating,
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
