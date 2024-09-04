@@ -10,43 +10,45 @@ import 'package:quotable/core/constant/constant.dart';
 abstract class ImageCapture {
   /// Captures the current widget's render as a PNG image and saves it to the device's document directory as "screenshot.png".
   /// Returns a [Future] that resolves when the image has been saved. If an error occurs, it is logged to the console.
-  static Future<void> captureAsPng(
-      BuildContext context, GlobalKey quoteAnimatedBoxKey) async {
+  static Future<Uint8List?> captureAsPng(
+    BuildContext context,
+    GlobalKey quoteAnimatedBoxKey,
+  ) async {
     try {
-      if (quoteAnimatedBoxKey.currentContext == null) {
-        displaySnackBar(
-            context, hasError: true, "The widget's context is not available.");
-        return;
-      }
-
       RenderRepaintBoundary? boundary = quoteAnimatedBoxKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary?;
       if (boundary == null) {
         displaySnackBar(
             context, hasError: true, "Failed to find RenderRepaintBoundary.");
-        return;
+        return null;
       }
 
       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
+
       if (byteData == null && context.mounted) {
         displaySnackBar(
             context, hasError: true, "Failed to convert image to PNG.");
-        return;
+        return null;
       }
-      if (!context.mounted) return;
-      await _saveImageLocally(byteData!, context);
+      if (!context.mounted) return null;
+
+      final pngBytes = byteData!.buffer.asUint8List();
+
+      return pngBytes;
     } catch (e) {
-      if (!context.mounted) return;
+      if (!context.mounted) return null;
       displaySnackBar(context, hasError: true, "Error: $e");
     }
+    return null;
   }
 
-  static Future<void> _saveImageLocally(
-      ByteData byteData, BuildContext context) async {
-    final pngBytes = byteData.buffer.asUint8List();
-
+  static Future<void> saveImageLocally(
+    BuildContext context,
+    Uint8List pngBytes, {
+    Function(File imgFile)? shareASImgCallback,
+  }) async {
     // Get the platform-specific directory
     final directory = Platform.isAndroid
         ? Directory('/storage/emulated/0/Pictures/$kAppName')
@@ -62,6 +64,12 @@ abstract class ImageCapture {
 
     try {
       await imgFile.writeAsBytes(pngBytes);
+      // use callback function  to set an image to share
+      if (shareASImgCallback != null) {
+        shareASImgCallback(imgFile);
+        return;
+      }
+
       if (context.mounted) {
         displaySnackBar(context, "File Saved: $imgFile");
       }
