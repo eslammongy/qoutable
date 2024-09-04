@@ -3,11 +3,14 @@ import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quotable/features/quotes/domain/entities/quote.dart';
 
 class BookmarkListItem extends StatelessWidget {
   const BookmarkListItem({
     super.key,
+    required this.quote,
   });
+  final QuoteEntity quote;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class BookmarkListItem extends StatelessWidget {
                 bottom: 0,
                 right: 80,
                 child: Text(
-                  "Hell, there are no rules here-- we're trying to accomplish something. Hell, there are no rules here-- we're trying to accomplish something. Hell, there are no rules here-- we're trying to accomplish something.",
+                  quote.content!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   textAlign: TextAlign.start,
@@ -56,7 +59,7 @@ class BookmarkListItem extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                     child: Text(
-                      "eslam mongy",
+                      quote.author!,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,
                       textAlign: TextAlign.start,

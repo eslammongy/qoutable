@@ -23,9 +23,15 @@ class AuthorsRepositoryImpl implements AuthorsRepository {
     try {
       final response = await apiService.getAllAuthors();
       if (response.statusCode == HttpStatus.ok) {
+        final List<AuthorEntity> authors = [];
         final authorsJson = response.data['results'] as List;
-        final authors =
-            authorsJson.map((json) => AuthorModel.fromMap(json)).toList();
+        for (var json in authorsJson) {
+          final author = AuthorModel.fromMap(json);
+          if (author.quoteCount != null && author.quoteCount! > 0) {
+            authors.add(author);
+          }
+        }
+
         return DataSuccess(authors);
       } else {
         return DataFailed(ServerFailure.handleError(badResponse(response)));
@@ -46,8 +52,9 @@ class AuthorsRepositoryImpl implements AuthorsRepository {
       if (response.statusCode == HttpStatus.ok) {
         final quotesJson = response.data['results'] as List;
 
-        final quotes =
-            quotesJson.map((json) => QuoteModel.fromJson(json)).toList();
+        final quotes = quotesJson.map((json) {
+          return QuoteModel.fromJson(json);
+        }).toList();
         return DataSuccess(quotes);
       } else {
         return DataFailed(ServerFailure.handleError(badResponse(response)));

@@ -29,7 +29,7 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(1, 379386721806788110),
             name: 'id',
             type: 6,
-            flags: 129),
+            flags: 1),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(2, 5599098248522759498),
             name: 'author',
@@ -109,13 +109,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toManyRelations: (QuoteEntity object) => {},
         getId: (QuoteEntity object) => object.id,
         setId: (QuoteEntity object, int id) {
-          if (object.id != id) {
-            throw ArgumentError('Field QuoteEntity.id is read-only '
-                '(final or getter-only) and it was declared to be self-assigned. '
-                'However, the currently inserted object (.id=${object.id}) '
-                "doesn't match the inserted ID (ID $id). "
-                'You must assign an ID before calling [box.put()].');
-          }
+          object.id = id;
         },
         objectToFB: (QuoteEntity object, fb.Builder fbb) {
           final authorOffset =
@@ -130,19 +124,17 @@ obx_int.ModelDefinition getObjectBoxModel() {
               ? null
               : fbb.writeString(object.dateBookmarked!);
           fbb.startTable(6);
-          fbb.addInt64(0, object.id ?? 0);
+          fbb.addInt64(0, object.id);
           fbb.addOffset(1, authorOffset);
           fbb.addOffset(2, contentOffset);
           fbb.addOffset(3, tagsOffset);
           fbb.addOffset(4, dateBookmarkedOffset);
           fbb.finish(fbb.endTable());
-          return object.id ?? 0;
+          return object.id;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
-          final idParam =
-              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
           final authorParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 6);
           final contentParam = const fb.StringReader(asciiOptimization: true)
@@ -155,11 +147,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 12);
           final object = QuoteEntity(
-              id: idParam,
               author: authorParam,
               content: contentParam,
               tags: tagsParam,
-              dateBookmarked: dateBookmarkedParam);
+              dateBookmarked: dateBookmarkedParam)
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
         })

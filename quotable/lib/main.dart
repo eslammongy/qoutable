@@ -10,6 +10,7 @@ import 'package:quotable/features/authors/presentation/bloc/authors_bloc.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
 import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
+import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
 
@@ -42,6 +43,9 @@ class Quotable extends StatelessWidget {
               create: (context) => getIt(),
             ),
             BlocProvider<AuthorsBloc>(
+              create: (context) => getIt(),
+            ),
+            BlocProvider<LocalQuoteBloc>(
               create: (context) => getIt(),
             ),
           ],

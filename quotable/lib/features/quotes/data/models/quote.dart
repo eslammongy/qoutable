@@ -1,7 +1,7 @@
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 
 class QuoteModel extends QuoteEntity {
-  const QuoteModel({
+   QuoteModel({
     super.author,
     super.content,
     super.tags,

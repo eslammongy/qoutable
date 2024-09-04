@@ -5,7 +5,7 @@ import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 
-AppBar singleViewAppBar(BuildContext context, {required String title}) {
+AppBar singleViewAppBar(BuildContext context, {Function()? actionOnTap}) {
   return AppBar(
     backgroundColor: context.theme.appColors.surface,
     shape: const RoundedRectangleBorder(
@@ -44,7 +44,7 @@ AppBar singleViewAppBar(BuildContext context, {required String title}) {
         height: 45,
         width: 45,
         child: InkWell(
-            onTap: () => GoRouter.of(context).pop(),
+            onTap: actionOnTap,
             borderRadius: BorderRadius.circular(100),
             child: const Icon(
               Icons.bookmark_add_outlined,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:quotable/objectbox.g.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 
@@ -14,10 +15,10 @@ class ObjectBoxDB {
     return ObjectBoxDB._create(store);
   }
 
-  int saveQuoteLocally({required QuoteEntity quote}) {
+  void saveQuoteLocally({required QuoteEntity quote}) {
     try {
-      final id = quoteBox.put(quote);
-      return id;
+      quoteBox.put(quote);
+      debugPrint("save quote locally");
     } catch (e) {
       rethrow;
     }

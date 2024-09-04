@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_event.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_state.dart';
 import 'package:quotable/features/quotes/domain/usecaces/save_quote_locally_usecase.dart';
@@ -20,14 +22,21 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     on<DeleteLocalQuotesEvent>(onDeleteQuoteLocallyUseCase);
   }
 
+  List<QuoteEntity> quotes = [];
   onFetchLocalQuotesUseCase(
     FetchLocalQuotesEvent event,
     Emitter<LocalQuoteStates> emit,
   ) async {
+    debugPrint("quotes length Begging: ${quotes.length}");
+    if (quotes.isNotEmpty) {
+      debugPrint("quotes length Not Empty: ${quotes.length}");
+      emit(LocalQuotesLoadSuccess(quotes: quotes));
+    }
     emit(const LocalQuoteLoading());
     try {
-      final quotes = await getFavoriteQuotesUsecase();
+      quotes = await getFavoriteQuotesUsecase();
       if (quotes.isNotEmpty) {
+        debugPrint("quotes length: ${quotes.length}");
         emit(LocalQuotesLoadSuccess(quotes: quotes));
       } else {
         emit(const LocalQuoteFailed(msg: "There is no quotes saved yet"));
