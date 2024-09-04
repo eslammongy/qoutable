@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 const String kAppName = "Quotable";
 const String homeLabel = "Home";
@@ -13,14 +12,12 @@ const String shareAsText = "Share As Text";
 const String shareAsPng = "Share As PNG";
 const String saveAsPng = "Save As PNG";
 const String loadingMsg = "please waiting, data is loaded...";
+const String authorInfo = "Author Info";
+const String moreInfo = "More Info";
 
 const quoteBaseUrl = "https://api.quotable.io";
 const quotesEndpoint = "/quotes";
 const tagsEndpoint = "/tags";
 const authorsEndpoint = "/authors";
 
-TextStyle montserratFontStyle = GoogleFonts.montserrat();
-TextStyle robotoMonoFontStyle = GoogleFonts.robotoMono();
-TextStyle cairoFontStyle = GoogleFonts.cairo();
-TextStyle robotoSlabFontStyle = GoogleFonts.robotoSlab();
-TextStyle nerkoOneFontStyle = GoogleFonts.nerkoOne();
+

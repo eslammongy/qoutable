@@ -36,43 +36,60 @@ class AuthorQuotesScreen extends StatelessWidget {
                       bottomRight: Radius.circular(12))),
               scrolledUnderElevation: 2,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Quotes in ${author.name}\n',
-                        style: TextStyles.font14SemiBold
-                            .copyWith(color: Colors.white),
-                      ),
-                      TextSpan(
-                        text: '(${author.quoteCount} Quotes)',
-                        style: TextStyles.font13Regular
-                            .copyWith(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                title: appBarTitleWidget(),
                 centerTitle: true,
                 background: const DecoratedBox(decoration: pubBoxDecoration),
               ),
-              leading: SizedBox(
-                height: 45,
-                width: 45,
-                child: InkWell(
-                    onTap: () {
-                      authorsBloc.quotes.clear();
-                      GoRouter.of(context).pop();
-                    },
-                    borderRadius: BorderRadius.circular(100),
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Colors.white,
-                    )),
+              leading: appBarActionBtn(
+                icon: Icons.arrow_back_ios_new_rounded,
+                onTap: () {
+                  authorsBloc.quotes.clear();
+                  GoRouter.of(context).pop();
+                },
               ),
+              actions: [
+                appBarActionBtn(onTap: () async {
+                  await displayInfoSheet(context, author);
+                })
+              ],
             ),
             AuthorQuotesList(author: author)
           ],
+        ),
+      ),
+    );
+  }
+
+  Text appBarTitleWidget() {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: 'Quotes in ${author.name}\n',
+            style: TextStyles.font14SemiBold.copyWith(color: Colors.white),
+          ),
+          TextSpan(
+            text: '(${author.quoteCount} Quotes)',
+            style: TextStyles.font13Regular
+                .copyWith(color: const Color(0xFFFFFFFF)),
+          ),
+        ],
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  SizedBox appBarActionBtn(
+      {Function()? onTap, IconData icon = Icons.info_rounded}) {
+    return SizedBox(
+      height: 45,
+      width: 45,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(100),
+        child: Icon(
+          icon,
+          color: Colors.white,
         ),
       ),
     );
