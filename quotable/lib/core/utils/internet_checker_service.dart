@@ -20,7 +20,7 @@ class InternetChecker {
 
   static Future<bool> checkConnection() async {
     if (_hasConnection) return _hasConnection;
-    return Future.delayed(
+    return await Future.delayed(
         const Duration(milliseconds: 10), () => _hasConnection);
   }
 }

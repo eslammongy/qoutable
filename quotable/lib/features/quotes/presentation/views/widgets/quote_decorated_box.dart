@@ -26,63 +26,66 @@ class QuoteDecoratedBox extends StatelessWidget {
       builder: (context, state) {
         return RepaintBoundary(
           key: quoteAnimatedBoxKey,
-          child: AnimatedContainer(
-            duration: const Duration(seconds: 1),
-            height: 300.h,
-            decoration: customizedDecorationBox(
-              decoratedBloc.selectedThemeColors,
-              radius: 14,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child:
-                        Icon(FontAwesomeIcons.quoteLeft, color: Colors.white),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          quote.content ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 6,
-                          textAlign: TextAlign.center,
-                          style: decoratedBloc.quoteTextStyle
-                              .copyWith(fontSize: 22, color: Colors.white),
-                        ),
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              height: 300.h,
+              decoration: customizedDecorationBox(
+                decoratedBloc.selectedThemeColors,
+                radius: 14,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child:
+                          Icon(FontAwesomeIcons.quoteLeft, color: Colors.white),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Card(
-                        color:
-                            context.theme.appColors.background.withOpacity(0.8),
-                        elevation: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Align(
+                          alignment: Alignment.center,
                           child: Text(
-                            quote.author ?? '',
+                            quote.content ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 6,
                             textAlign: TextAlign.center,
-                            style: TextStyles.font13SemiBold
-                                .copyWith(color: Colors.white),
+                            style: decoratedBloc.quoteTextStyle
+                                .copyWith(fontSize: 22, color: Colors.white),
                           ),
                         ),
                       ),
-                      const Align(
-                        alignment: Alignment.bottomRight,
-                        child: Icon(FontAwesomeIcons.quoteRight,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Card(
+                          color: context.theme.appColors.background
+                              .withOpacity(0.8),
+                          elevation: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              quote.author ?? '',
+                              textAlign: TextAlign.center,
+                              style: TextStyles.font13SemiBold
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Icon(FontAwesomeIcons.quoteRight,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
