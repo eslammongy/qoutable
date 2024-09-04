@@ -53,7 +53,7 @@ class AuthorsGridView extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       AppAssets.authorSvgIcon,
-                      width: 70,
+                      width: 50,
                     ),
                     const SizedBox(
                       height: 6,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
@@ -65,3 +66,9 @@ class TextStyles {
     fontWeight: FontWeight.w500,
   );
 }
+
+TextStyle montserratFontStyle = GoogleFonts.montserrat();
+TextStyle robotoMonoFontStyle = GoogleFonts.robotoMono();
+TextStyle cairoFontStyle = GoogleFonts.cairo();
+TextStyle robotoSlabFontStyle = GoogleFonts.robotoSlab();
+TextStyle nerkoOneFontStyle = GoogleFonts.nerkoOne();

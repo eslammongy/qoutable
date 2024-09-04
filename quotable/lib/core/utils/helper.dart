@@ -5,6 +5,8 @@ import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/core/error/api_error_msg.dart';
+import 'package:quotable/features/authors/domain/entities/author.dart';
+import 'package:quotable/features/authors/presentation/views/widgets/author_info_sheet.dart';
 
 const pubBoxDecoration = BoxDecoration(
   borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -112,4 +114,24 @@ void displaySnackBar(
     behavior: SnackBarBehavior.floating,
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+Future<void> displayInfoSheet(BuildContext context, AuthorEntity author) async {
+  const borderRadius = Radius.circular(20.0);
+  final theme = Theme.of(context);
+  await showModalBottomSheet(
+    context: context,
+    backgroundColor: theme.appColors.background,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: borderRadius,
+        topRight: borderRadius,
+      ),
+    ),
+    builder: (BuildContext context) {
+      return AuthorInfoBottomSheet(
+        author: author,
+      );
+    },
+  );
 }

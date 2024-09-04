@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_event.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_state.dart';
