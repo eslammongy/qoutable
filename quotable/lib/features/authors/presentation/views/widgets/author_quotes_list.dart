@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
-import 'package:quotable/core/widgets/custome_error_widget.dart';
+import 'package:quotable/injection_container.dart';
+import 'package:quotable/core/widgets/custom_error_widget.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/authors/domain/entities/author.dart';
 import 'package:quotable/features/authors/presentation/bloc/authors_bloc.dart';
@@ -16,10 +17,8 @@ class AuthorQuotesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthorsBloc, AuthorsStates>(
-      bloc: BlocProvider.of<AuthorsBloc>(context)
-        ..add(
-          FetchAuthorQuotesEvent(name: author.name ?? ''),
-        ),
+      bloc: getIt<AuthorsBloc>()
+        ..add(FetchAuthorQuotesEvent(name: author.name!)),
       listener: (context, state) {},
       builder: (context, state) {
         if (state is AuthorsStateFetchQuotesSuccess) {

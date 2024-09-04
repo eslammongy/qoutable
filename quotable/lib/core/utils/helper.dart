@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:quotable/config/theme/app_theme.dart';
-import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
-import 'package:quotable/core/constant/app_assets.dart';
-import 'package:quotable/core/error/api_error_msg.dart';
 import 'package:quotable/features/authors/domain/entities/author.dart';
 import 'package:quotable/features/authors/presentation/views/widgets/author_info_sheet.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
+import 'package:quotable/injection_container.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/features/authors/domain/entities/author.dart';
@@ -14,10 +14,9 @@ class AuthorQuotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authorsBloc = BlocProvider.of<AuthorsBloc>(context);
     return PopScope(
       onPopInvokedWithResult: (_, __) {
-        authorsBloc.quotes.clear();
+        getIt<AuthorsBloc>().quotes.clear();
       },
       child: Scaffold(
         backgroundColor: context.theme.appColors.background,
@@ -43,7 +42,7 @@ class AuthorQuotesScreen extends StatelessWidget {
               leading: appBarActionBtn(
                 icon: Icons.arrow_back_ios_new_rounded,
                 onTap: () {
-                  authorsBloc.quotes.clear();
+                  getIt<AuthorsBloc>().quotes.clear();
                   GoRouter.of(context).pop();
                 },
               ),

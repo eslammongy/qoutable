@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
-import 'package:quotable/core/widgets/custome_error_widget.dart';
+import 'package:quotable/core/widgets/custom_error_widget.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_list_item.dart';
