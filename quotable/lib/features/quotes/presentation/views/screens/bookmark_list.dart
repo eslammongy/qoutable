@@ -70,8 +70,11 @@ class BookmarkList extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
             onTap: () {
-              GoRouter.of(context)
-                  .push(AppRouter.singleQuoteScreen, extra: quotes[index]);
+              final details = {"from": "bookmark", "quote": quotes[index]};
+              GoRouter.of(context).push(
+                AppRouter.singleQuoteScreen,
+                extra: details,
+              );
             },
             borderRadius: BorderRadius.circular(16),
             child: BookmarkListItem(

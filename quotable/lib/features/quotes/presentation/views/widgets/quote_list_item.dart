@@ -18,7 +18,11 @@ class QuoteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.singleQuoteScreen, extra: quote);
+        final details = {"from": "remote", "quote": quote};
+        GoRouter.of(context).push(
+          AppRouter.singleQuoteScreen,
+          extra: details,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),

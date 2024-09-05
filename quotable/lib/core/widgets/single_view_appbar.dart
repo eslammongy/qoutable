@@ -5,7 +5,8 @@ import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/core/constant/app_assets.dart';
 
-AppBar singleViewAppBar(BuildContext context, {Function()? actionOnTap}) {
+AppBar singleViewAppBar(BuildContext context,
+    {Function()? actionOnTap, bool isBookmark = false}) {
   return AppBar(
     backgroundColor: context.theme.appColors.surface,
     shape: const RoundedRectangleBorder(
@@ -46,8 +47,10 @@ AppBar singleViewAppBar(BuildContext context, {Function()? actionOnTap}) {
         child: InkWell(
             onTap: actionOnTap,
             borderRadius: BorderRadius.circular(100),
-            child: const Icon(
-              Icons.bookmark_add_outlined,
+            child: Icon(
+              isBookmark
+                  ? Icons.bookmark_add_rounded
+                  : Icons.bookmark_add_outlined,
               size: 30,
             )),
       )

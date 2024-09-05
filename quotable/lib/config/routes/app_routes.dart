@@ -24,9 +24,9 @@ abstract class AppRouter {
       GoRoute(
         path: singleQuoteScreen,
         builder: (context, state) {
-          final quote = state.extra as QuoteEntity;
+          final details = state.extra as Map<String, dynamic>;
           return SingleQuoteScreen(
-            quote: quote,
+            details: details,
           );
         },
       ),
