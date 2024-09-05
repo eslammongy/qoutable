@@ -23,7 +23,8 @@ class RandomQuotesList extends StatelessWidget {
           return CustomErrorWidget(
             failure: state.error!,
             onPressed: () {
-              getIt<RemoteQuoteBloc>().add(const FetchRemoteQuotes());
+              BlocProvider.of<RemoteQuoteBloc>(context)
+                  .add(const FetchRemoteQuotes());
             },
           );
         } else {

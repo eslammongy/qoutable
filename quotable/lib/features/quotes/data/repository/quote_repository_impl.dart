@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';

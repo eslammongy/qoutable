@@ -50,7 +50,7 @@ AppBar singleViewAppBar(BuildContext context, {Function()? actionOnTap}) {
               Icons.bookmark_add_outlined,
               size: 30,
             )),
-      ),
+      )
     ],
   );
 }

@@ -3,7 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/config/theme/text_style.dart';
+import 'package:quotable/core/constant/app_assets.dart';
 import 'package:quotable/config/routes/app_routes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_event.dart';
@@ -18,17 +21,45 @@ class BookmarkList extends StatelessWidget {
     final localQuoteBloc = BlocProvider.of<LocalQuoteBloc>(context);
     return BlocConsumer<LocalQuoteBloc, LocalQuoteStates>(
         bloc: localQuoteBloc..add(const FetchLocalQuotesEvent()),
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is LocalQuotesSaveSuccess) {
+            displaySnackBar(context, "The Quote has been saved successfully");
+          }
+          if (state is LocalQuoteFailed) {
+            displaySnackBar(context, "Failed to save the Quote");
+          }
+        },
         builder: (context, state) {
           if (state is LocalQuotesLoadSuccess ||
               localQuoteBloc.quotes.isNotEmpty) {
             return _displayQuoteListView(state.quotes ?? localQuoteBloc.quotes);
           } else if (state is LocalQuoteFailed) {
-            return Text("${state.msg}");
+            return _displayErrorWidget(state);
           } else {
             return displayLoadingWidget(loadingMsg: loadingMsg);
           }
         });
+  }
+
+  Widget _displayErrorWidget(LocalQuoteFailed state) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            AppAssets.emptyDateImg,
+            width: 260.w,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            "${state.msg}",
+            style: TextStyles.font16Medium,
+          ),
+        ],
+      ),
+    );
   }
 
   _displayQuoteListView(List<QuoteEntity> quotes) {

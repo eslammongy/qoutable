@@ -26,8 +26,9 @@ class ObjectBoxDB {
 
   Future<List<QuoteEntity>> getSavedQuotes() async {
     try {
-      final listOfSessions = await quoteBox.getAllAsync();
-      return listOfSessions;
+      final quotes = await quoteBox.getAllAsync();
+      debugPrint("Quotes Count:$quotes");
+      return quotes;
     } catch (e) {
       rethrow;
     }

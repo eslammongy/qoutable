@@ -27,16 +27,13 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     FetchLocalQuotesEvent event,
     Emitter<LocalQuoteStates> emit,
   ) async {
-    debugPrint("quotes length Begging: ${quotes.length}");
     if (quotes.isNotEmpty) {
-      debugPrint("quotes length Not Empty: ${quotes.length}");
       emit(LocalQuotesLoadSuccess(quotes: quotes));
     }
     emit(const LocalQuoteLoading());
     try {
       quotes = await getFavoriteQuotesUsecase();
       if (quotes.isNotEmpty) {
-        debugPrint("quotes length: ${quotes.length}");
         emit(LocalQuotesLoadSuccess(quotes: quotes));
       } else {
         emit(const LocalQuoteFailed(msg: "There is no quotes saved yet"));
@@ -53,6 +50,7 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     try {
       await saveQuoteLocallyUsecase.call(params: event.quote);
       emit(const LocalQuotesSaveSuccess());
+      debugPrint("Saving new quote...");
     } on Exception catch (e) {
       emit(LocalQuoteFailed(msg: "$e"));
     }
