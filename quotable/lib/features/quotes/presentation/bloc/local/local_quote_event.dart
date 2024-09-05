@@ -17,7 +17,5 @@ class SaveLocalQuotesEvent extends LocalQuotesEvents {
 
 class DeleteLocalQuotesEvent extends LocalQuotesEvents {
   final int id;
-  const DeleteLocalQuotesEvent({
-    required this.id,
-  });
+  const DeleteLocalQuotesEvent({required this.id});
 }

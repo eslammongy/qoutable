@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(1, 1822293919364040193),
       name: 'QuoteEntity',
-      lastPropertyId: const obx_int.IdUid(5, 6345181499658310691),
+      lastPropertyId: const obx_int.IdUid(7, 6283085748865241530),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -46,9 +46,15 @@ final _entities = <obx_int.ModelEntity>[
             type: 30,
             flags: 0),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(5, 6345181499658310691),
-            name: 'dateBookmarked',
+            id: const obx_int.IdUid(6, 8746263388560836571),
+            name: 'quoteId',
             type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(1, 1720969509568949836)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 6283085748865241530),
+            name: 'isBookmarked',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -91,12 +97,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(1, 1822293919364040193),
-      lastIndexId: const obx_int.IdUid(0, 0),
+      lastIndexId: const obx_int.IdUid(1, 1720969509568949836),
       lastRelationId: const obx_int.IdUid(0, 0),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [6345181499658310691],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -120,21 +126,23 @@ obx_int.ModelDefinition getObjectBoxModel() {
               ? null
               : fbb.writeList(
                   object.tags!.map(fbb.writeString).toList(growable: false));
-          final dateBookmarkedOffset = object.dateBookmarked == null
-              ? null
-              : fbb.writeString(object.dateBookmarked!);
-          fbb.startTable(6);
+          final quoteIdOffset =
+              object.quoteId == null ? null : fbb.writeString(object.quoteId!);
+          fbb.startTable(8);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, authorOffset);
           fbb.addOffset(2, contentOffset);
           fbb.addOffset(3, tagsOffset);
-          fbb.addOffset(4, dateBookmarkedOffset);
+          fbb.addOffset(5, quoteIdOffset);
+          fbb.addBool(6, object.isBookmarked);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
+          final quoteIdParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 14);
           final authorParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 6);
           final contentParam = const fb.StringReader(asciiOptimization: true)
@@ -143,14 +151,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   fb.StringReader(asciiOptimization: true),
                   lazy: false)
               .vTableGetNullable(buffer, rootOffset, 10);
-          final dateBookmarkedParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGetNullable(buffer, rootOffset, 12);
+          final isBookmarkedParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 16, false);
           final object = QuoteEntity(
+              quoteId: quoteIdParam,
               author: authorParam,
               content: contentParam,
               tags: tagsParam,
-              dateBookmarked: dateBookmarkedParam)
+              isBookmarked: isBookmarkedParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
@@ -178,7 +186,11 @@ class QuoteEntity_ {
   static final tags =
       obx.QueryStringVectorProperty<QuoteEntity>(_entities[0].properties[3]);
 
-  /// See [QuoteEntity.dateBookmarked].
-  static final dateBookmarked =
+  /// See [QuoteEntity.quoteId].
+  static final quoteId =
       obx.QueryStringProperty<QuoteEntity>(_entities[0].properties[4]);
+
+  /// See [QuoteEntity.isBookmarked].
+  static final isBookmarked =
+      obx.QueryBooleanProperty<QuoteEntity>(_entities[0].properties[5]);
 }

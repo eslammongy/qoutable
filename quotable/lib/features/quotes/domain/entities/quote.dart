@@ -4,15 +4,18 @@ import 'package:objectbox/objectbox.dart';
 class QuoteEntity {
   @Id()
   int id = 0;
+  @Unique()
+  final String? quoteId;
   final String? author;
   final String? content;
   final List<String>? tags;
-  final String? dateBookmarked;
+  bool isBookmarked;
 
   QuoteEntity({
+    this.quoteId,
     this.author,
     this.content,
     this.tags,
-    this.dateBookmarked,
+    this.isBookmarked = false,
   });
 }

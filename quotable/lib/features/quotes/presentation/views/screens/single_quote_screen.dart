@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quotable/injection_container.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/core/utils/image_capture.dart';
 import 'package:quotable/core/widgets/single_view_appbar.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
-import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_bloc.dart';
-import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_event.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_action_btn.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_font_toggles.dart';
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_bloc.dart';
@@ -22,18 +19,14 @@ class SingleQuoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final QuoteEntity quote = details['quote'] as QuoteEntity;
-    final localQuoteBloc = getIt<LocalQuoteBloc>();
-    return BlocProvider<DecorateQuoteBloc>(
-      create: (context) => DecorateQuoteBloc(),
-      child: Scaffold(
-        appBar: singleViewAppBar(
-          context,
-          isBookmark: details['from'] == 'bookmark',
-          actionOnTap: () {
-            localQuoteBloc.add(SaveLocalQuotesEvent(quote: quote));
-          },
-        ),
-        body: BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
+    return Scaffold(
+      appBar: SingleQuoteAppBar(
+    
+        quote: quote,
+      ),
+      body: BlocProvider<DecorateQuoteBloc>(
+        create: (context) => DecorateQuoteBloc(),
+        child: BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),

@@ -27,6 +27,10 @@ class LocalQuotesSaveSuccess extends LocalQuoteStates {
   const LocalQuotesSaveSuccess();
 }
 
+class LocalQuotesDeleteState extends LocalQuoteStates {
+  const LocalQuotesDeleteState();
+}
+
 class LocalQuoteFailed extends LocalQuoteStates {
   final String? msg;
   const LocalQuoteFailed({this.msg});

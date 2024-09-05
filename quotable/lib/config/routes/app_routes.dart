@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/authors/domain/entities/author.dart';
 import 'package:quotable/features/categories/domain/entities/category.dart';
 import 'package:quotable/features/home/presentation/views/screen/home_screen.dart';
