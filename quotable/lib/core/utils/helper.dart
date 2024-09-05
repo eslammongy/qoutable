@@ -111,11 +111,10 @@ BoxDecoration quoteBoxDecoration(BuildContext context) => BoxDecoration(
       color: context.theme.appColors.surface,
       borderRadius: BorderRadius.circular(14),
       border: Border(
-        top: BorderSide(
-            color: context.theme.appColors.primary, width: 1.0), // Top border
-        right: BorderSide(
+        top: BorderSide.none, // Top border
+        bottom: BorderSide(
             color: context.theme.appColors.primary, width: 2.0), // Left border
-        bottom: BorderSide.none, // No bottom border
-        left: BorderSide.none, // No right border
+        left: BorderSide.none, // No bottom border
+        right: BorderSide.none, // No right border
       ),
     );

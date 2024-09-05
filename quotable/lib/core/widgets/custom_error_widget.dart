@@ -36,7 +36,8 @@ class CustomErrorWidget extends StatelessWidget {
               child: Text(
                 "Try again",
                 textAlign: TextAlign.center,
-                style: TextStyles.font16SemiBold,
+                style:
+                    TextStyles.font16SemiBold.copyWith(color: Colors.redAccent),
               )),
         ],
       ),

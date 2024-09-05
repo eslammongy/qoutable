@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_event.dart';
@@ -35,8 +34,9 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     }
     emit(const LocalQuoteLoadingState());
     try {
-      quotes = await getFavoriteQuotesUsecase();
+      final quotes = await getFavoriteQuotesUsecase();
       if (quotes.isNotEmpty) {
+        this.quotes = quotes;
         emit(LocalQuotesLoadedState(quotes: quotes));
       } else {
         emit(const LocalQuoteFailed(msg: "There is no quotes saved yet"));

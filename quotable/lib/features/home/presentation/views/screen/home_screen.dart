@@ -31,8 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: homeAppBar(context),
       extendBody: true,
       body: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 30),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 30),
         child: screens[_currentIndex],
       ),
       bottomNavigationBar: FloatingBottomNavBar(

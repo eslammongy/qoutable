@@ -49,11 +49,7 @@ class SingleQuoteAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: 45,
         width: 45,
         child: InkWell(
-            onTap: () {
-              LocalQuoteBloc.get(context)
-                  .add(const ResetLocalQuoteStateEvent());
-              GoRouter.of(context).pop();
-            },
+            onTap: () => GoRouter.of(context).pop(),
             borderRadius: BorderRadius.circular(100),
             child: const Icon(Icons.arrow_back_ios_rounded)),
       ),
@@ -71,9 +67,7 @@ class SingleQuoteAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: BlocBuilder<LocalQuoteBloc, LocalQuoteStates>(
             builder: (context, state) {
               if (quote.isBookmarked || state is LocalQuotesSaveState) {
-                if (state is LocalQuotesSaveState) {
-                  quote.id = state.quoteId;
-                }
+                if (state is LocalQuotesSaveState) quote.id = state.quoteId;
 
                 return bookmarkActionBtn(
                   icon: Icons.bookmark_remove_rounded,

@@ -18,18 +18,17 @@ class BookmarkList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localQuoteBloc = BlocProvider.of<LocalQuoteBloc>(context);
+    final localQuoteBloc = LocalQuoteBloc.get(context);
     return BlocConsumer<LocalQuoteBloc, LocalQuoteStates>(
         bloc: localQuoteBloc..add(const FetchLocalQuotesEvent()),
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is LocalQuotesLoadedState ||
-              localQuoteBloc.quotes.isNotEmpty) {
-            return _displayQuoteListView(state.quotes ?? localQuoteBloc.quotes);
+          if (state is LocalQuoteLoadingState) {
+            return displayLoadingWidget(loadingMsg: loadingMsg);
           } else if (state is LocalQuoteFailed) {
             return _displayErrorWidget(state);
           } else {
-            return displayLoadingWidget(loadingMsg: loadingMsg);
+            return _displayQuoteListView(state.quotes ?? localQuoteBloc.quotes);
           }
         });
   }
@@ -56,6 +55,26 @@ class BookmarkList extends StatelessWidget {
   }
 
   _displayQuoteListView(List<QuoteEntity> quotes) {
+    if (quotes.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppAssets.emptyDateImg,
+              width: 260.w,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "There is no quotes bookmarked or saved locally yet...",
+              style: TextStyles.font16Medium,
+            ),
+          ],
+        ),
+      );
+    }
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: quotes.length,

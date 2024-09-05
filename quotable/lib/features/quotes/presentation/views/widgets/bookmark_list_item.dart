@@ -26,7 +26,7 @@ class BookmarkListItem extends StatelessWidget {
           margin: const EdgeInsets.all(2),
           elevation: 0,
           child: SizedBox(
-            height: 80.h,
+            height: 90.h,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Stack(
@@ -44,7 +44,7 @@ class BookmarkListItem extends StatelessWidget {
                     left: 40,
                     top: 0,
                     bottom: 0,
-                    right: 80,
+                    right: 10,
                     child: Text(
                       quote.content!,
                       overflow: TextOverflow.ellipsis,
@@ -71,7 +71,7 @@ class BookmarkListItem extends StatelessWidget {
                           quote.author!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: TextStyles.font14Regular,
                         ),
                       ),
