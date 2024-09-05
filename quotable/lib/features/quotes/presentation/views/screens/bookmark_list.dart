@@ -21,16 +21,9 @@ class BookmarkList extends StatelessWidget {
     final localQuoteBloc = BlocProvider.of<LocalQuoteBloc>(context);
     return BlocConsumer<LocalQuoteBloc, LocalQuoteStates>(
         bloc: localQuoteBloc..add(const FetchLocalQuotesEvent()),
-        listener: (context, state) {
-          if (state is LocalQuotesSaveSuccess) {
-            displaySnackBar(context, "The Quote has been saved successfully");
-          }
-          if (state is LocalQuoteFailed) {
-            displaySnackBar(context, "Failed to save the Quote");
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
-          if (state is LocalQuotesLoadSuccess ||
+          if (state is LocalQuotesLoadedState ||
               localQuoteBloc.quotes.isNotEmpty) {
             return _displayQuoteListView(state.quotes ?? localQuoteBloc.quotes);
           } else if (state is LocalQuoteFailed) {
@@ -66,7 +59,7 @@ class BookmarkList extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: quotes.length,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+      padding: const EdgeInsets.only(bottom: 30),
       itemBuilder: (context, index) {
         return InkWell(
             onTap: () {

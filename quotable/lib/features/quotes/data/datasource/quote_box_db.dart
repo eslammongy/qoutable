@@ -15,12 +15,21 @@ class ObjectBoxDB {
     return ObjectBoxDB._create(store);
   }
 
-  void saveQuoteLocally({required QuoteEntity quote}) {
+  int saveQuoteLocally({required QuoteEntity quote}) {
     try {
-      quoteBox.put(quote);
-      debugPrint("save quote locally");
+      final isQuoteExist = quoteBox
+          .query(QuoteEntity_.quoteId.equals('${quote.quoteId}'))
+          .build()
+          .findFirst();
+      if (isQuoteExist != null) {
+        throw Exception(
+            'Can not save quote: ${quote.quoteId}, this quote already exist');
+      } else {
+        return quoteBox.put(quote, mode: PutMode.put);
+      }
     } catch (e) {
-      rethrow;
+      throw Exception(
+          'Can not save quote: there was an error while saving this quote');
     }
   }
 
@@ -30,7 +39,8 @@ class ObjectBoxDB {
       debugPrint("Quotes Count:$quotes");
       return quotes;
     } catch (e) {
-      rethrow;
+      throw Exception(
+          'Can not get saved quotes: there was an error while getting saved quotes');
     }
   }
 
@@ -38,7 +48,8 @@ class ObjectBoxDB {
     try {
       quoteBox.remove(quoteId);
     } catch (e) {
-      rethrow;
+      throw Exception(
+          'Can not delete quote: there was an error while deleting this quote');
     }
   }
 }

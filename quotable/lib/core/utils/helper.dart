@@ -81,7 +81,7 @@ void displaySnackBar(
     margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     backgroundColor: hasError ? theme.appColors.error : theme.appColors.primary,
-    duration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 5),
     behavior: SnackBarBehavior.floating,
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);

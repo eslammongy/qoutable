@@ -12,6 +12,8 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
   final SaveQuoteLocallyUsecase saveQuoteLocallyUsecase;
   final DeleteQuoteLocallyUsecase deleteQuoteLocallyUsecase;
 
+  static LocalQuoteBloc get(context) => BlocProvider.of(context);
+
   LocalQuoteBloc(
     this.getFavoriteQuotesUsecase,
     this.saveQuoteLocallyUsecase,
@@ -20,26 +22,26 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     on<FetchLocalQuotesEvent>(onFetchLocalQuotesUseCase);
     on<SaveLocalQuotesEvent>(onSaveQuoteLocallyUseCase);
     on<DeleteLocalQuotesEvent>(onDeleteQuoteLocallyUseCase);
+    on<ResetLocalQuoteStateEvent>(onResetLocalQuotesState);
   }
 
   List<QuoteEntity> quotes = [];
-  bool isBookmarked = false;
   onFetchLocalQuotesUseCase(
     FetchLocalQuotesEvent event,
     Emitter<LocalQuoteStates> emit,
   ) async {
     if (quotes.isNotEmpty) {
-      emit(LocalQuotesLoadSuccess(quotes: quotes));
+      emit(LocalQuotesLoadedState(quotes: quotes));
     }
-    emit(const LocalQuoteLoading());
+    emit(const LocalQuoteLoadingState());
     try {
       quotes = await getFavoriteQuotesUsecase();
       if (quotes.isNotEmpty) {
-        emit(LocalQuotesLoadSuccess(quotes: quotes));
+        emit(LocalQuotesLoadedState(quotes: quotes));
       } else {
         emit(const LocalQuoteFailed(msg: "There is no quotes saved yet"));
       }
-    } on Exception catch (e) {
+    } catch (e) {
       emit(LocalQuoteFailed(msg: "$e"));
     }
   }
@@ -49,12 +51,19 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     Emitter<LocalQuoteStates> emit,
   ) async {
     try {
-      await saveQuoteLocallyUsecase.call(params: event.quote);
-      emit(const LocalQuotesSaveSuccess());
-      debugPrint("Saving new quote..${event.quote.isBookmarked}");
-    } on Exception catch (e) {
+      final params = event.quote.copyWith(isBookmarked: true);
+      final quoteId = await saveQuoteLocallyUsecase.call(params: params);
+      emit(LocalQuotesSaveState(quoteId: quoteId));
+    } catch (e) {
       emit(LocalQuoteFailed(msg: "$e"));
     }
+  }
+
+  onResetLocalQuotesState(
+    ResetLocalQuoteStateEvent event,
+    Emitter<LocalQuoteStates> emit,
+  ) async {
+    emit(const LocalQuoteInitState());
   }
 
   onDeleteQuoteLocallyUseCase(
@@ -62,9 +71,16 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     Emitter<LocalQuoteStates> emit,
   ) async {
     try {
-      await deleteQuoteLocallyUsecase.call(params: event.id);
+      await deleteQuoteLocallyUsecase
+          .call(params: event.quote.id)
+          .then((value) {
+        event.quote.isBookmarked = false;
+        quotes.removeWhere(
+          (element) => element.id == event.quote.id,
+        );
+      });
       emit(const LocalQuotesDeleteState());
-    } on Exception catch (e) {
+    } catch (e) {
       emit(LocalQuoteFailed(msg: "$e"));
     }
   }

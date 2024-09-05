@@ -30,7 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: theme.appColors.background,
       appBar: homeAppBar(context),
       extendBody: true,
-      body: screens[_currentIndex],
+      body: Padding(
+        padding:
+            const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 30),
+        child: screens[_currentIndex],
+      ),
       bottomNavigationBar: FloatingBottomNavBar(
         currentIndex: _currentIndex,
         getCurrentIndex: (int index) {

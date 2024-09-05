@@ -48,10 +48,9 @@ class QuoteRepositoryImpl implements QuoteRepository {
   }
 
   @override
-  Future<void> saveQuoteLocally({required QuoteEntity quote}) async {
+  Future<int> saveQuoteLocally({required QuoteEntity quote}) async {
     try {
-     
-      objectBoxDB.saveQuoteLocally(quote: quote);
+      return objectBoxDB.saveQuoteLocally(quote: quote);
     } catch (e) {
       rethrow;
     }

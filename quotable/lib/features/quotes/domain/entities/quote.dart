@@ -1,4 +1,5 @@
 import 'package:objectbox/objectbox.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 @Entity()
 class QuoteEntity {
@@ -18,4 +19,21 @@ class QuoteEntity {
     this.tags,
     this.isBookmarked = false,
   });
+
+  QuoteEntity copyWith({
+    int? id,
+    String? quoteId,
+    String? author,
+    String? content,
+    List<String>? tags,
+    bool? isBookmarked,
+  }) {
+    return QuoteEntity(
+      quoteId: quoteId ?? this.quoteId,
+      author: author ?? this.author,
+      content: content ?? this.content,
+      tags: tags ?? this.tags,
+      isBookmarked: isBookmarked ?? this.isBookmarked,
+    );
+  }
 }

@@ -37,7 +37,7 @@ class RandomQuotesList extends StatelessWidget {
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: quotes.length,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: const EdgeInsets.only(bottom: 30),
         itemBuilder: (context, index) {
           return QuoteListItem(
             quote: quotes[index],

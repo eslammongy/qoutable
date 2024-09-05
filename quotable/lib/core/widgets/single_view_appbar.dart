@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/core/constant/constant.dart';
 import 'package:quotable/config/theme/text_style.dart';
@@ -48,33 +49,48 @@ class SingleQuoteAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: 45,
         width: 45,
         child: InkWell(
-            onTap: () => GoRouter.of(context).pop(),
+            onTap: () {
+              LocalQuoteBloc.get(context)
+                  .add(const ResetLocalQuoteStateEvent());
+              GoRouter.of(context).pop();
+            },
             borderRadius: BorderRadius.circular(100),
             child: const Icon(Icons.arrow_back_ios_rounded)),
       ),
       actions: [
-        BlocBuilder<LocalQuoteBloc, LocalQuoteStates>(
-          builder: (context, state) {
-            if (quote.isBookmarked) {
+        BlocListener<LocalQuoteBloc, LocalQuoteStates>(
+          listener: (context, state) {
+            if (state is LocalQuoteFailed) {
+              Future(() {
+                if (context.mounted) {
+                  displaySnackBar(context, state.msg!, hasError: true);
+                }
+              });
+            }
+          },
+          child: BlocBuilder<LocalQuoteBloc, LocalQuoteStates>(
+            builder: (context, state) {
+              if (quote.isBookmarked || state is LocalQuotesSaveState) {
+                if (state is LocalQuotesSaveState) {
+                  quote.id = state.quoteId;
+                }
+
+                return bookmarkActionBtn(
+                  icon: Icons.bookmark_remove_rounded,
+                  actionOnTap: () {
+                    LocalQuoteBloc.get(context)
+                        .add(DeleteLocalQuotesEvent(quote: quote));
+                  },
+                );
+              }
               return bookmarkActionBtn(
-                icon: Icons.bookmark_remove_rounded,
                 actionOnTap: () {
-                  quote.isBookmarked = false;
-                  context
-                      .read<LocalQuoteBloc>()
-                      .add(DeleteLocalQuotesEvent(id: quote.id));
+                  LocalQuoteBloc.get(context)
+                      .add(SaveLocalQuotesEvent(quote: quote));
                 },
               );
-            }
-            return bookmarkActionBtn(
-              actionOnTap: () {
-                quote.isBookmarked = true;
-                context
-                    .read<LocalQuoteBloc>()
-                    .add(SaveLocalQuotesEvent(quote: quote));
-              },
-            );
-          },
+            },
+          ),
         )
       ],
     );

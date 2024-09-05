@@ -7,24 +7,25 @@ abstract class LocalQuoteStates extends Equatable {
   const LocalQuoteStates({this.quotes});
 
   @override
-  List<Object> get props => [quotes!];
+  List<Object?> get props => [quotes];
 }
 
 class LocalQuoteInitState extends LocalQuoteStates {
   const LocalQuoteInitState();
 }
 
-class LocalQuoteLoading extends LocalQuoteStates {
-  const LocalQuoteLoading();
+class LocalQuoteLoadingState extends LocalQuoteStates {
+  const LocalQuoteLoadingState();
 }
 
-class LocalQuotesLoadSuccess extends LocalQuoteStates {
-  const LocalQuotesLoadSuccess({required List<QuoteEntity> quotes})
+class LocalQuotesLoadedState extends LocalQuoteStates {
+  const LocalQuotesLoadedState({required List<QuoteEntity> quotes})
       : super(quotes: quotes);
 }
 
-class LocalQuotesSaveSuccess extends LocalQuoteStates {
-  const LocalQuotesSaveSuccess();
+class LocalQuotesSaveState extends LocalQuoteStates {
+  final int quoteId;
+  const LocalQuotesSaveState({required this.quoteId});
 }
 
 class LocalQuotesDeleteState extends LocalQuoteStates {
