@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/config/resources/data_state.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
@@ -18,25 +19,40 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
     on<FetchAuthorQuotesEvent>(onFetchAuthorsQuotes);
   }
 
+  static AuthorsBloc get(BuildContext context) =>
+      BlocProvider.of<AuthorsBloc>(context);
+
   List<AuthorEntity> authors = [];
   List<QuoteEntity> quotes = [];
+  int currentPage = 1;
+  bool isFetching = false;
+  bool hasMoreAuthors = true;
 
   onFetchRemoteCategories(
     FetchRemoteAuthorsEvent event,
     Emitter<AuthorsStates> emit,
   ) async {
-    if (authors.isNotEmpty) {
-      emit(AuthorsStateSuccess(authors: authors));
+    // Prevent multiple requests or if no more authors
+    if (isFetching || !hasMoreAuthors) return;
+
+    isFetching = true;
+    if (currentPage == 1) {
+      emit(const AuthorsStateLoading());
     }
     emit(const AuthorsStateLoading());
-    final dataState = await fetchAllAuthorsUsecase();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      authors = dataState.data!;
-      emit(AuthorsStateSuccess(authors: dataState.data!));
+    final result = await fetchAllAuthorsUsecase.call(params: currentPage);
+
+    if (result is DataSuccess && result.data!.isNotEmpty) {
+      currentPage++;
+      emit(AuthorsStateSuccess(authors: authors = result.data!));
+    } else if (result is DataSuccess && result.data!.isEmpty) {
+      hasMoreAuthors = false; // No more authors to load
+    } else {
+      hasMoreAuthors = false; // No more authors to load
+      emit(AuthorsStateFailed(error: result.error!));
     }
-    if (dataState is DataFailed) {
-      emit(AuthorsStateFailed(error: dataState.error!));
-    }
+
+    isFetching = false;
   }
 
   onFetchAuthorsQuotes(

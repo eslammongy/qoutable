@@ -16,12 +16,13 @@ class AuthorsRepositoryImpl implements AuthorsRepository {
 
   AuthorsRepositoryImpl({required this.apiService});
   @override
-  Future<DataState<List<AuthorEntity>>> fetchAllAuthors() async {
+  Future<DataState<List<AuthorEntity>>> fetchAllAuthors(
+      {required int page}) async {
     if (!await InternetChecker.checkConnection()) {
       return DataFailed(ServerFailure.handleError(noConnection()));
     }
     try {
-      final response = await apiService.getAllAuthors();
+      final response = await apiService.getAllAuthors(page: page);
       if (response.statusCode == HttpStatus.ok) {
         final List<AuthorEntity> authors = [];
         final authorsJson = response.data['results'] as List;
