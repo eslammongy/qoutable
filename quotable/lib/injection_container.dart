@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:quotable/core/utils/user_pref.dart';
 import 'package:quotable/core/utils/internet_checker_service.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_box_db.dart';
 import 'package:quotable/features/home/domain/usecaces/change_app_theme.dart';
@@ -8,6 +9,7 @@ import 'package:quotable/features/home/domain/repository/app_settings_repo.dart'
 import 'package:quotable/features/home/presentation/bloc/app_settings_bloc.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_api_services.dart';
 import 'package:quotable/features/quotes/domain/repository/quote_repository.dart';
+import 'package:quotable/features/home/domain/usecaces/get_app_theme_usecase.dart';
 import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:quotable/features/authors/data/datasource/authors_api_service.dart';
 import 'package:quotable/features/authors/domain/repository/authors_repository.dart';
@@ -32,9 +34,10 @@ import 'package:quotable/features/categories/domain/usecaces/fetch_category_quot
 final getIt = GetIt.instance;
 
 Future<void> initializeDependencies() async {
+  await SharedPref.init();
+  final objectBoxDb = await ObjectBoxDB.create();
   getIt.registerSingleton<InternetChecker>(InternetChecker.init());
 
-  final objectBoxDb = await ObjectBoxDB.create();
   //** Dio */
   getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(
       connectTimeout: const Duration(seconds: 30),
@@ -100,6 +103,11 @@ Future<void> initializeDependencies() async {
       appSettingsRepo: getIt(),
     ),
   );
+  getIt.registerLazySingleton<SetAppThemeUseCase>(
+    () => SetAppThemeUseCase(
+      appSettingsRepo: getIt(),
+    ),
+  );
 
   getIt.registerLazySingleton<GetFavoriteQuotesUsecase>(
     () => GetFavoriteQuotesUsecase(
@@ -122,7 +130,8 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<RemoteQuoteBloc>(() => RemoteQuoteBloc(getIt()));
 
   getIt.registerFactory<AppSettingsBloc>(() => AppSettingsBloc(
-        changeAppTheme: getIt(),
+        changeAppThemeUseCase: getIt(),
+        setAppThemeUseCase: getIt(),
       ));
 
   getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(

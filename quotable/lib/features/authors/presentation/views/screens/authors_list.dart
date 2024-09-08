@@ -23,7 +23,12 @@ class AuthorsList extends StatelessWidget {
             authors: state.authors ?? authorsBloc.authors,
           );
         } else if (state is AuthorsStateFailed) {
-          return CustomErrorWidget(failure: state.error!);
+          return CustomErrorWidget(
+            failure: state.error!,
+            onPressed: () {
+              authorsBloc.add(const FetchRemoteAuthorsEvent());
+            },
+          );
         } else {
           return displayLoadingWidget(loadingMsg: loadingMsg);
         }

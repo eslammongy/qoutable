@@ -24,7 +24,12 @@ class CategoriesList extends StatelessWidget {
             categories: state.categories ?? categoryBloc.categories,
           );
         } else if (state is CategoryStateFailed) {
-          return CustomErrorWidget(failure: state.error!);
+          return CustomErrorWidget(
+            failure: state.error!,
+            onPressed: () {
+              categoryBloc.add(const FetchRemoteCategoriesEvent());
+            },
+          );
         } else {
           return displayLoadingWidget(loadingMsg: loadingMsg);
         }

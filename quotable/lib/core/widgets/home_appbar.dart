@@ -13,8 +13,11 @@ AppBar homeAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: context.theme.appColors.background,
     shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(15),
+        bottomRight: Radius.circular(15),
+      ),
+    ),
     title: Row(
       children: [
         Image.asset(
