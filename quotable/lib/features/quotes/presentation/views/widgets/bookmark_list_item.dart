@@ -59,6 +59,7 @@ class BookmarkListItem extends StatelessWidget {
                     top: 20,
                     child: InkWell(
                       onTap: onTap,
+                      borderRadius: BorderRadius.circular(20),
                       child: Card(
                         color: context.theme.appColors.primary,
                         shape: RoundedRectangleBorder(
