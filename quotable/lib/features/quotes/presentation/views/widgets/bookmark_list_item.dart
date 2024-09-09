@@ -10,21 +10,21 @@ class BookmarkListItem extends StatelessWidget {
   const BookmarkListItem({
     super.key,
     required this.quote,
+    this.onTap,
   });
   final QuoteEntity quote;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 10.0),
       child: DecoratedBox(
-        decoration: pubBoxDecoration,
+        decoration: quoteBoxDecoration(context),
         child: Card(
           color: context.theme.appColors.surface,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           margin: const EdgeInsets.all(2),
-          elevation: 0,
+          elevation: 2,
           child: SizedBox(
             height: 90.h,
             child: Padding(
@@ -42,7 +42,7 @@ class BookmarkListItem extends StatelessWidget {
                   const SizedBox(width: 8),
                   Positioned(
                     left: 40,
-                    top: 0,
+                    top: 10,
                     bottom: 0,
                     right: 10,
                     child: Text(
@@ -54,25 +54,23 @@ class BookmarkListItem extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 0,
+                    bottom: 20,
                     right: 0,
-                    child: Card(
-                      color: context.theme.appColors.surface,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(
-                              width: 2,
-                              color: context.theme.appColors.primary)),
-                      elevation: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
-                        child: Text(
-                          quote.author!,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 4,
-                          textAlign: TextAlign.center,
-                          style: TextStyles.font14Regular,
+                    top: 20,
+                    child: InkWell(
+                      onTap: onTap,
+                      child: Card(
+                        color: context.theme.appColors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        elevation: 0,
+                        child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),

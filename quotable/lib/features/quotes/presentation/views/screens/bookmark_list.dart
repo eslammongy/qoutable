@@ -80,18 +80,15 @@ class BookmarkList extends StatelessWidget {
       itemCount: quotes.length,
       padding: const EdgeInsets.only(bottom: 30),
       itemBuilder: (context, index) {
-        return InkWell(
-            onTap: () {
-              final details = {"from": "bookmark", "quote": quotes[index]};
-              GoRouter.of(context).push(
-                AppRouter.singleQuoteScreen,
-                extra: details,
-              );
-            },
-            borderRadius: BorderRadius.circular(16),
-            child: BookmarkListItem(
-              quote: quotes[index],
-            ));
+        return BookmarkListItem(
+          quote: quotes[index],
+          onTap: () {
+            GoRouter.of(context).push(
+              AppRouter.singleQuoteScreen,
+              extra: quotes[index],
+            );
+          },
+        );
       },
     );
   }

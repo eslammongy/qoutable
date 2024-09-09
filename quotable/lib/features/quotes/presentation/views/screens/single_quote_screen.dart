@@ -13,15 +13,13 @@ import 'package:quotable/features/quotes/presentation/views/widgets/quote_theme_
 import 'package:quotable/features/quotes/presentation/bloc/decorate/decorate_quote_state.dart';
 
 class SingleQuoteScreen extends StatelessWidget {
-  const SingleQuoteScreen({super.key, required this.details});
-  final Map<String, dynamic> details;
+  const SingleQuoteScreen({super.key, required this.quote});
+  final QuoteEntity quote;
 
   @override
   Widget build(BuildContext context) {
-    final QuoteEntity quote = details['quote'] as QuoteEntity;
     return Scaffold(
       appBar: SingleQuoteAppBar(
-    
         quote: quote,
       ),
       body: BlocProvider<DecorateQuoteBloc>(

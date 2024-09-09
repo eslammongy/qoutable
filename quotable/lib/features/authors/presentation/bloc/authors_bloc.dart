@@ -44,11 +44,11 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
 
     if (result is DataSuccess && result.data!.isNotEmpty) {
       currentPage++;
-      emit(AuthorsStateSuccess(authors: authors = result.data!));
+      authors.addAll([...result.data!]);
+      emit(AuthorsStateSuccess(authors: authors));
     } else if (result is DataSuccess && result.data!.isEmpty) {
       hasMoreAuthors = false; // No more authors to load
     } else {
-      hasMoreAuthors = false; // No more authors to load
       emit(AuthorsStateFailed(error: result.error!));
     }
 

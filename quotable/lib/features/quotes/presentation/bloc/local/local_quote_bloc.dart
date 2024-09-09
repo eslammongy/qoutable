@@ -29,9 +29,7 @@ class LocalQuoteBloc extends Bloc<LocalQuotesEvents, LocalQuoteStates> {
     FetchLocalQuotesEvent event,
     Emitter<LocalQuoteStates> emit,
   ) async {
-    if (quotes.isNotEmpty) {
-      emit(LocalQuotesLoadedState(quotes: quotes));
-    }
+    if (quotes.isNotEmpty) return;
     emit(const LocalQuoteLoadingState());
     try {
       final quotes = await getFavoriteQuotesUsecase();
