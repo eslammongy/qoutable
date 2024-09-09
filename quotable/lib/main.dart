@@ -41,7 +41,7 @@ class Quotable extends StatelessWidget {
               create: (context) => getIt()..add(const SetAppTheme()),
             ),
             BlocProvider<RemoteQuoteBloc>(
-              create: (context) => getIt()..add(const FetchRemoteQuotes()),
+              create: (context) => getIt(),
             ),
             BlocProvider<CategoriesBloc>(
               create: (context) => getIt(),

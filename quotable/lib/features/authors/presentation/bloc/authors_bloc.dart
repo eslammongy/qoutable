@@ -39,7 +39,6 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
     if (currentPage == 1) {
       emit(const AuthorsStateLoading());
     }
-    emit(const AuthorsStateLoading());
     final result = await fetchAllAuthorsUsecase.call(params: currentPage);
 
     if (result is DataSuccess && result.data!.isNotEmpty) {

@@ -18,12 +18,13 @@ class QuoteRepositoryImpl implements QuoteRepository {
     required this.objectBoxDB,
   });
   @override
-  Future<DataState<List<QuoteModel>>> fetchRemoteQuotes() async {
+  Future<DataState<List<QuoteModel>>> fetchRemoteQuotes(
+      {required int page}) async {
     if (!await InternetChecker.checkConnection()) {
       return DataFailed(ServerFailure.handleError(noConnection()));
     }
     try {
-      final response = await quoteApiServices.getRemoteQuotes(limit: 30);
+      final response = await quoteApiServices.getRemoteQuotes(page: page);
 
       if (response.statusCode == HttpStatus.ok) {
         final quotesJson = response.data['results'] as List;

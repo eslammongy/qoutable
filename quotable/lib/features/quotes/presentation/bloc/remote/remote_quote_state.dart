@@ -9,7 +9,7 @@ abstract class RemoteQuoteState extends Equatable {
   const RemoteQuoteState({this.quotes, this.error});
 
   @override
-  List<Object> get props => [quotes!, error!];
+  List<Object?> get props => [quotes, error];
 }
 
 class RemoteQuoteInitState extends RemoteQuoteState {

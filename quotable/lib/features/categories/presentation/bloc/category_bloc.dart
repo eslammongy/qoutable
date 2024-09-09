@@ -25,9 +25,8 @@ class CategoriesBloc extends Bloc<CategoriesEvents, CategoriesStates> {
     FetchRemoteCategoriesEvent event,
     Emitter<CategoriesStates> emit,
   ) async {
-    if (categories.isNotEmpty) {
-      emit(CategoriesStateSuccess(categories: categories));
-    }
+    // Prevent multiple requests or if no more authors
+    if (categories.isNotEmpty) return;
     emit(const CategoriesStateLoading());
     final dataState = await fetchRemoteCategories();
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
