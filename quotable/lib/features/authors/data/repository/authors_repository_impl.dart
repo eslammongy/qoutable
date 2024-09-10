@@ -16,16 +16,23 @@ class AuthorsRepositoryImpl implements AuthorsRepository {
 
   AuthorsRepositoryImpl({required this.apiService});
   @override
-  Future<DataState<List<AuthorEntity>>> fetchAllAuthors() async {
+  Future<DataState<List<AuthorEntity>>> fetchAllAuthors(
+      {required int page}) async {
     if (!await InternetChecker.checkConnection()) {
       return DataFailed(ServerFailure.handleError(noConnection()));
     }
     try {
-      final response = await apiService.getAllAuthors();
+      final response = await apiService.getAllAuthors(page: page);
       if (response.statusCode == HttpStatus.ok) {
+        final List<AuthorEntity> authors = [];
         final authorsJson = response.data['results'] as List;
-        final authors =
-            authorsJson.map((json) => AuthorModel.fromMap(json)).toList();
+        for (var json in authorsJson) {
+          final author = AuthorModel.fromMap(json);
+          if (author.quoteCount != null && author.quoteCount! > 0) {
+            authors.add(author);
+          }
+        }
+
         return DataSuccess(authors);
       } else {
         return DataFailed(ServerFailure.handleError(badResponse(response)));
@@ -46,8 +53,9 @@ class AuthorsRepositoryImpl implements AuthorsRepository {
       if (response.statusCode == HttpStatus.ok) {
         final quotesJson = response.data['results'] as List;
 
-        final quotes =
-            quotesJson.map((json) => QuoteModel.fromJson(json)).toList();
+        final quotes = quotesJson.map((json) {
+          return QuoteModel.fromJson(json);
+        }).toList();
         return DataSuccess(quotes);
       } else {
         return DataFailed(ServerFailure.handleError(badResponse(response)));

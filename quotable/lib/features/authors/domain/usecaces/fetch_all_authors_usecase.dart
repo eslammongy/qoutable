@@ -4,11 +4,11 @@ import 'package:quotable/features/authors/domain/entities/author.dart';
 import 'package:quotable/features/authors/domain/repository/authors_repository.dart';
 
 class FetchAllAuthorsUsecase
-    extends UseCase<DataState<List<AuthorEntity>>, void> {
+    extends UseCase<DataState<List<AuthorEntity>>, int> {
   final AuthorsRepository authorsRepository;
   FetchAllAuthorsUsecase({required this.authorsRepository});
   @override
-  Future<DataState<List<AuthorEntity>>> call({void params}) async {
-    return await authorsRepository.fetchAllAuthors();
+  Future<DataState<List<AuthorEntity>>> call({int? params}) async {
+    return await authorsRepository.fetchAllAuthors(page: params!);
   }
 }

@@ -6,7 +6,7 @@ class ChangeAppThemeUseCase {
 
   ChangeAppThemeUseCase({required this.appSettingsRepo});
 
-  ThemeMode call({bool params = false}) {
+  Future<ThemeMode> call({bool params = false}) {
     return appSettingsRepo.changeAppTheme(params);
   }
 }

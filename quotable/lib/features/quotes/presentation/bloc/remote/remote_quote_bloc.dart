@@ -6,7 +6,8 @@ import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_s
 
 class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
   final FetchRemoteQuotesUseCase fetchQuotesUseCase;
-  RemoteQuoteBloc(this.fetchQuotesUseCase) : super(const RemoteQuoteLoading()) {
+  RemoteQuoteBloc(this.fetchQuotesUseCase)
+      : super(const RemoteQuoteInitState()) {
     on<FetchRemoteQuotes>(onFetchRemoteQuoteUseCase);
   }
 
@@ -14,6 +15,7 @@ class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
     FetchRemoteQuotes event,
     Emitter<RemoteQuoteState> emit,
   ) async {
+    emit(const RemoteQuoteLoading());
     final dataState = await fetchQuotesUseCase();
 
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {

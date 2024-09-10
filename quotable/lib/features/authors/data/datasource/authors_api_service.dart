@@ -5,9 +5,9 @@ class AuthorsApiService {
   final Dio dio;
   AuthorsApiService({required this.dio});
 
-  Future<Response<dynamic>> getAllAuthors() async {
+  Future<Response<dynamic>> getAllAuthors({required int page}) async {
     try {
-      const path = '$quoteBaseUrl$authorsEndpoint?limit=40';
+      final path = '$quoteBaseUrl$authorsEndpoint?page=$page';
       final dioResponse = await dio.get(path);
       return dioResponse;
     } catch (e) {

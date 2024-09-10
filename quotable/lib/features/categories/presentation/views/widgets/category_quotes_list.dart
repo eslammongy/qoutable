@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
+import 'package:quotable/core/widgets/custom_error_widget.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/categories/domain/entities/category.dart';
 import 'package:quotable/features/categories/presentation/bloc/category_bloc.dart';
@@ -17,7 +18,7 @@ class CategoryQuotesList extends StatelessWidget {
     return BlocConsumer<CategoriesBloc, CategoriesStates>(
       bloc: BlocProvider.of<CategoriesBloc>(context)
         ..add(
-          FetchRemoteCategoryQuotesEvent(tag: category.name ?? ''),
+          FetchRemoteCategoryQuotesEvent(tag: category.name!),
         ),
       listener: (context, state) {},
       builder: (context, state) {
@@ -27,7 +28,7 @@ class CategoryQuotesList extends StatelessWidget {
           return SliverFillRemaining(
             child: Align(
                 alignment: Alignment.center,
-                child: displayErrorWidget(context, state.error!)),
+                child: CustomErrorWidget(failure: state.error!)),
           );
         } else {
           return SliverFillRemaining(

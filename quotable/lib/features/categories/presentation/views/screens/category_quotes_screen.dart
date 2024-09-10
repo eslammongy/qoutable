@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
+import 'package:quotable/injection_container.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/features/categories/domain/entities/category.dart';
@@ -14,7 +14,7 @@ class CategoryQuotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
+    final categoryBloc = getIt<CategoriesBloc>();
     return PopScope(
       onPopInvokedWithResult: (_, __) {
         categoryBloc.quotes.clear();

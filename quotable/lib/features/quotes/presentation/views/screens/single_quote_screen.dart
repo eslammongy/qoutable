@@ -18,11 +18,13 @@ class SingleQuoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DecorateQuoteBloc>(
-      create: (context) => DecorateQuoteBloc(),
-      child: Scaffold(
-        appBar: singleViewAppBar(context, title: ''),
-        body: BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
+    return Scaffold(
+      appBar: SingleQuoteAppBar(
+        quote: quote,
+      ),
+      body: BlocProvider<DecorateQuoteBloc>(
+        create: (context) => DecorateQuoteBloc(),
+        child: BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -45,38 +47,7 @@ class SingleQuoteScreen extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomQuoteBtn(
-                        text: shareAsPng,
-                        onTap: () async {
-                          final pngBytes = await ImageCapture.captureAsPng(
-                            context,
-                            quoteAnimatedBoxKey,
-                          );
-                          if (pngBytes != null && context.mounted) {
-                            await ImageCapture.saveImageLocally(
-                              context,
-                              pngBytes,
-                              shareASImgCallback: (imgFile) async {
-                                await Share.shareXFiles([XFile(imgFile.path)]);
-                              },
-                            );
-                          }
-                        },
-                      ),
-                      CustomQuoteBtn(
-                        text: shareAsText,
-                        onTap: () async {
-                          await Share.share(
-                            quote.content ?? '',
-                            subject: kAppName,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                  _quoteSharingOptions(context, quote),
                   const SizedBox(
                     height: 10,
                   ),
@@ -99,6 +70,41 @@ class SingleQuoteScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Row _quoteSharingOptions(BuildContext context, QuoteEntity quote) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CustomQuoteBtn(
+          text: shareAsPng,
+          onTap: () async {
+            final pngBytes = await ImageCapture.captureAsPng(
+              context,
+              quoteAnimatedBoxKey,
+            );
+            if (pngBytes != null && context.mounted) {
+              await ImageCapture.saveImageLocally(
+                context,
+                pngBytes,
+                shareASImgCallback: (imgFile) async {
+                  await Share.shareXFiles([XFile(imgFile.path)]);
+                },
+              );
+            }
+          },
+        ),
+        CustomQuoteBtn(
+          text: shareAsText,
+          onTap: () async {
+            await Share.share(
+              quote.content ?? '',
+              subject: kAppName,
+            );
+          },
+        ),
+      ],
     );
   }
 }

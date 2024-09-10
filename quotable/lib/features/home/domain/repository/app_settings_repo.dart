@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract class AppSettingsRepo {
-  ThemeMode changeAppTheme(bool isLight);
+  Future<ThemeMode> changeAppTheme(bool isLight);
+  ThemeMode setAppTheme();
 }

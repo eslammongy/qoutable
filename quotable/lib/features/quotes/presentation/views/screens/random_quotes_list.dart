@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/constant/constant.dart';
+import 'package:quotable/core/widgets/custom_error_widget.dart';
 import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/views/widgets/quote_list_item.dart';
+import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_state.dart';
 
 class RandomQuotesList extends StatelessWidget {
@@ -17,7 +19,13 @@ class RandomQuotesList extends StatelessWidget {
         if (state is RemoteQuotesSuccess) {
           return _displayQuoteListView(state.quotes!);
         } else if (state is RemoteQuoteFailed) {
-          return displayErrorWidget(context, state.error!);
+          return CustomErrorWidget(
+            failure: state.error!,
+            onPressed: () {
+              BlocProvider.of<RemoteQuoteBloc>(context)
+                  .add(const FetchRemoteQuotes());
+            },
+          );
         } else {
           return displayLoadingWidget(loadingMsg: loadingMsg);
         }
@@ -29,7 +37,7 @@ class RandomQuotesList extends StatelessWidget {
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: quotes.length,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: const EdgeInsets.only(bottom: 30),
         itemBuilder: (context, index) {
           return QuoteListItem(
             quote: quotes[index],
@@ -37,9 +45,3 @@ class RandomQuotesList extends StatelessWidget {
         });
   }
 }
-
-fakeQuote() => const QuoteEntity(
-    id: "9000i00jkmk",
-    author: "Eslam Mongy",
-    content:
-        "Faith, as well intentioned as it may be, must be built on facts, not fiction--faith in fiction is a damnable false hope.");

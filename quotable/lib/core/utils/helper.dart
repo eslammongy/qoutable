@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:quotable/config/theme/app_theme.dart';
-import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/theme/text_style.dart';
-import 'package:quotable/core/constant/app_assets.dart';
-import 'package:quotable/core/error/api_error_msg.dart';
 import 'package:quotable/features/authors/domain/entities/author.dart';
 import 'package:quotable/features/authors/presentation/views/widgets/author_info_sheet.dart';
 
@@ -54,32 +51,6 @@ DioException badResponse(Response response) {
   return dioError;
 }
 
-Widget displayErrorWidget(BuildContext context, Failure failure) {
-  return Center(
-      child: Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        failure.message == noInternetError
-            ? Image.asset(
-                AppAssets.noWifiImg,
-                width: 200,
-              )
-            : Image.asset(
-                AppAssets.responseErrorImg,
-                width: 200,
-              ),
-        Text(
-          "${failure.message}",
-          textAlign: TextAlign.center,
-          style: TextStyles.font16SemiBold,
-        ),
-      ],
-    ),
-  ));
-}
-
 Center displayLoadingWidget({String loadingMsg = "loading..."}) {
   return Center(
       child: Column(
@@ -110,7 +81,7 @@ void displaySnackBar(
     margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     backgroundColor: hasError ? theme.appColors.error : theme.appColors.primary,
-    duration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 5),
     behavior: SnackBarBehavior.floating,
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -135,3 +106,15 @@ Future<void> displayInfoSheet(BuildContext context, AuthorEntity author) async {
     },
   );
 }
+
+BoxDecoration quoteBoxDecoration(BuildContext context) => BoxDecoration(
+      color: context.theme.appColors.surface,
+      borderRadius: BorderRadius.circular(14),
+      border: Border(
+        top: BorderSide.none, // Top border
+        bottom: BorderSide(
+            color: context.theme.appColors.primary, width: 2.0), // Left border
+        left: BorderSide.none, // No bottom border
+        right: BorderSide.none, // No right border
+      ),
+    );

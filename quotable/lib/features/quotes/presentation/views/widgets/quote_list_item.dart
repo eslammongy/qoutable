@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/config/theme/app_theme.dart';
 import 'package:quotable/config/theme/text_style.dart';
 import 'package:quotable/config/routes/app_routes.dart';
@@ -18,12 +19,15 @@ class QuoteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.singleQuoteScreen, extra: quote);
+        GoRouter.of(context).push(
+          AppRouter.singleQuoteScreen,
+          extra: quote,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: DecoratedBox(
-            decoration: boxDecoration(context),
+            decoration: quoteBoxDecoration(context),
             child: SizedBox(
               height: 200.h,
               width: 100.w,
@@ -80,18 +84,4 @@ class QuoteListItem extends StatelessWidget {
       ),
     );
   }
-
-  BoxDecoration boxDecoration(BuildContext context) => BoxDecoration(
-        color: context.theme.appColors.surface,
-        borderRadius: BorderRadius.circular(14),
-        border: Border(
-          top: BorderSide(
-              color: context.theme.appColors.primary, width: 1.0), // Top border
-          right: BorderSide(
-              color: context.theme.appColors.primary,
-              width: 2.0), // Left border
-          bottom: BorderSide.none, // No bottom border
-          left: BorderSide.none, // No right border
-        ),
-      );
 }
