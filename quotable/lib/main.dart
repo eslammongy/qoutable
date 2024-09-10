@@ -14,7 +14,6 @@ import 'package:quotable/features/categories/presentation/bloc/category_bloc.dar
 import 'package:quotable/features/home/presentation/bloc/app_settings_states.dart';
 import 'package:quotable/features/quotes/presentation/bloc/local/local_quote_bloc.dart';
 import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_bloc.dart';
-import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_event.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +40,7 @@ class Quotable extends StatelessWidget {
               create: (context) => getIt()..add(const SetAppTheme()),
             ),
             BlocProvider<RemoteQuoteBloc>(
-              create: (context) => getIt()..add(const FetchRemoteQuotes()),
+              create: (context) => getIt(),
             ),
             BlocProvider<CategoriesBloc>(
               create: (context) => getIt(),

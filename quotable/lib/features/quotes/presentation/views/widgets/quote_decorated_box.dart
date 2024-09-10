@@ -22,6 +22,7 @@ class QuoteDecoratedBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final decoratedBloc = BlocProvider.of<DecorateQuoteBloc>(context);
+    debugPrint("Content Length:${quote.content!.length}");
     return BlocBuilder<DecorateQuoteBloc, DecorateQuoteState>(
       builder: (context, state) {
         return RepaintBoundary(
@@ -30,7 +31,7 @@ class QuoteDecoratedBox extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: AnimatedContainer(
               duration: const Duration(seconds: 1),
-              height: 300.h,
+              height: quote.content!.length > 130 ? 330.h : 300.h,
               decoration: customizedDecorationBox(
                 decoratedBloc.selectedThemeColors,
                 radius: 14,
@@ -52,8 +53,8 @@ class QuoteDecoratedBox extends StatelessWidget {
                           child: Text(
                             quote.content ?? '',
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 6,
                             textAlign: TextAlign.center,
+                            maxLines: 12,
                             style: decoratedBloc.quoteTextStyle
                                 .copyWith(fontSize: 22, color: Colors.white),
                           ),

@@ -19,6 +19,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvents, AppSettingsStates> {
   static AppSettingsBloc get(context) => BlocProvider.of(context);
 
   ThemeMode themeMode = ThemeMode.dark;
+  int currentScreeIndex = 0;
 
   onChangeAppTheme(
     ChangeAppTheme event,

@@ -4,13 +4,13 @@ import 'package:quotable/features/quotes/domain/entities/quote.dart';
 import 'package:quotable/features/quotes/domain/repository/quote_repository.dart';
 
 class FetchRemoteQuotesUseCase
-    implements UseCase<DataState<List<QuoteEntity>>, void> {
+    implements UseCase<DataState<List<QuoteEntity>>, int> {
   final QuoteRepository quoteRepository;
 
   FetchRemoteQuotesUseCase({required this.quoteRepository});
 
   @override
-  Future<DataState<List<QuoteEntity>>> call({void params}) async {
-    return await quoteRepository.fetchRemoteQuotes();
+  Future<DataState<List<QuoteEntity>>> call({int? params}) async {
+    return await quoteRepository.fetchRemoteQuotes(page: params!);
   }
 }

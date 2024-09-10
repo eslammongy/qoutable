@@ -40,7 +40,7 @@ class AuthorGridItem extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       AppAssets.authorSvgIcon,
-                      width: 50,
+                      width: 40,
                     ),
                     const SizedBox(
                       height: 6,
