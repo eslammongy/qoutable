@@ -15,7 +15,7 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
     this.fetchAllAuthorsUsecase,
     this.fetchAuthorQuotesUsecase,
   ) : super(const AuthorsStateInit()) {
-    on<FetchRemoteAuthorsEvent>(onFetchRemoteCategories);
+    on<FetchRemoteAuthorsEvent>(onFetchRemoteAuthors);
     on<FetchAuthorQuotesEvent>(onFetchAuthorsQuotes);
   }
 
@@ -27,31 +27,31 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
   int currentPage = 1;
   bool isFetching = false;
   bool hasMoreAuthors = true;
-
-  onFetchRemoteCategories(
+  onFetchRemoteAuthors(
     FetchRemoteAuthorsEvent event,
     Emitter<AuthorsStates> emit,
   ) async {
-    // Prevent multiple requests or if no more authors
     if (isFetching || !hasMoreAuthors) return;
-
     isFetching = true;
-    if (currentPage == 1) {
-      emit(const AuthorsStateLoading());
-    }
-    final result = await fetchAllAuthorsUsecase.call(params: currentPage);
+    try {
+      if (currentPage == 1) {
+        emit(const AuthorsStateLoading());
+      }
 
-    if (result is DataSuccess && result.data!.isNotEmpty) {
-      currentPage++;
-      authors.addAll([...result.data!]);
-      emit(AuthorsStateSuccess(authors: authors));
-    } else if (result is DataSuccess && result.data!.isEmpty) {
-      hasMoreAuthors = false; // No more authors to load
-    } else {
-      emit(AuthorsStateFailed(error: result.error!));
-    }
+      final result = await fetchAllAuthorsUsecase.call(params: currentPage);
 
-    isFetching = false;
+      if (result is DataSuccess && result.data!.isNotEmpty) {
+        currentPage++;
+        authors.addAll(result.data!);
+        emit(AuthorsStateSuccess(authors: authors));
+      } else if (result is DataSuccess && result.data!.isEmpty) {
+        hasMoreAuthors = false; // No more authors to load
+      } else {
+        emit(AuthorsStateFailed(error: result.error!));
+      }
+    } finally {
+      isFetching = false;
+    }
   }
 
   onFetchAuthorsQuotes(

@@ -30,10 +30,10 @@ class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
       emit(const RemoteQuoteLoading());
     }
     final result = await fetchQuotesUseCase.call(params: currentPage);
-
+   
     if (result is DataSuccess && result.data!.isNotEmpty) {
       currentPage++;
-      //debugPrint("Result Data:${result.data}..Current Page:$currentPage");
+   
       quotes.addAll([...result.data!]);
       emit(RemoteQuotesSuccess(quotes: quotes));
     } else if (result is DataSuccess && result.data!.isEmpty) {
