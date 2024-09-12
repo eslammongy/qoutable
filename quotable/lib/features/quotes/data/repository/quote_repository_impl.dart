@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:quotable/core/utils/helper.dart';
 import 'package:quotable/core/error/api_failure.dart';
 import 'package:quotable/config/resources/data_state.dart';
@@ -20,7 +21,9 @@ class QuoteRepositoryImpl implements QuoteRepository {
   @override
   Future<DataState<List<QuoteModel>>> fetchRemoteQuotes(
       {required int page}) async {
-    if (!await InternetChecker.checkConnection()) {
+    final hasConnection = await InternetChecker.checkConnection();
+    if (!hasConnection) {
+      debugPrint("No Internet Connection:");
       return DataFailed(ServerFailure.handleError(noConnection()));
     }
     try {

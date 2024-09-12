@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:quotable/core/utils/user_pref.dart';
-import 'package:quotable/core/utils/internet_checker_service.dart';
 import 'package:quotable/features/quotes/data/datasource/quote_box_db.dart';
 import 'package:quotable/features/home/domain/usecaces/change_app_theme.dart';
 import 'package:quotable/features/authors/presentation/bloc/authors_bloc.dart';
@@ -36,8 +35,6 @@ final getIt = GetIt.instance;
 Future<void> initializeDependencies() async {
   await SharedPref.init();
   final objectBoxDb = await ObjectBoxDB.create();
-  getIt.registerSingleton<InternetChecker>(InternetChecker.init());
-
   //** Dio */
   getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(
       connectTimeout: const Duration(seconds: 30),
