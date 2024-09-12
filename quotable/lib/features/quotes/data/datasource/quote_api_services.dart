@@ -10,17 +10,10 @@ class QuoteApiServices {
       const path = '$quoteBaseUrl$quotesEndpoint';
 
       final dioResponse =
-          await dio.get(path, queryParameters: {'page': page}).then(
-        (value) {
-          debugPrint("Quote Request::${value.requestOptions.uri}");
-        },
-      ).onError(
-        (error, stackTrace) {
-          debugPrint("Quote Request Error::$error");
-        },
-      );
+          await dio.get(path, queryParameters: {'page': page});
       return dioResponse;
     } catch (e) {
+      debugPrint("Quote Request Error::$e");
       rethrow;
     }
   }

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'config/theme/app_theme.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotable/injection_container.dart';
@@ -20,9 +19,8 @@ import 'package:quotable/features/quotes/presentation/bloc/remote/remote_quote_b
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  HttpOverrides.global = MyHttpOverrides();
   await Future.wait([
-    _loadTrustedCertificates(),
     initializeDependencies(),
     ScreenUtil.ensureScreenSize(),
   ]);
@@ -78,10 +76,11 @@ class Quotable extends StatelessWidget {
   }
 }
 
-// Load trusted certificates asynchronously
-Future<void> _loadTrustedCertificates() async {
-  ByteData data =
-      await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
-  SecurityContext.defaultContext
-      .setTrustedCertificatesBytes(data.buffer.asUint8List());
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
