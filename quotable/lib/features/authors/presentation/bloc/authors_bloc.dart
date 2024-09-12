@@ -39,15 +39,16 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
     if (currentPage == 1) {
       emit(const AuthorsStateLoading());
     }
+    emit(const AuthorsStateLoading());
     final result = await fetchAllAuthorsUsecase.call(params: currentPage);
 
     if (result is DataSuccess && result.data!.isNotEmpty) {
       currentPage++;
-      authors.addAll([...result.data!]);
-      emit(AuthorsStateSuccess(authors: authors));
+      emit(AuthorsStateSuccess(authors: authors = result.data!));
     } else if (result is DataSuccess && result.data!.isEmpty) {
       hasMoreAuthors = false; // No more authors to load
     } else {
+      hasMoreAuthors = false; // No more authors to load
       emit(AuthorsStateFailed(error: result.error!));
     }
 

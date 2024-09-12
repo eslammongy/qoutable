@@ -13,19 +13,22 @@ class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
     on<FetchRemoteQuotes>(onFetchRemoteQuoteUseCase);
   }
 
-  static RemoteQuoteBloc get(BuildContext context) => BlocProvider.of(context);
+  static RemoteQuoteBloc get(BuildContext context) =>
+      BlocProvider.of<RemoteQuoteBloc>(context);
 
   List<QuoteEntity> quotes = [];
   int currentPage = 1;
   bool isFetching = false;
-  bool hasMoreAuthors = true;
+  bool hasMoreQuotes = true;
 
   onFetchRemoteQuoteUseCase(
     FetchRemoteQuotes event,
     Emitter<RemoteQuoteState> emit,
   ) async {
     // Prevent multiple requests or if no more authors
-    if (isFetching || !hasMoreAuthors) return;
+    if (isFetching || !hasMoreQuotes) return;
+
+    isFetching = true;
     if (currentPage == 1) {
       emit(const RemoteQuoteLoading());
     }
@@ -33,12 +36,12 @@ class RemoteQuoteBloc extends Bloc<RemoteQuotesEvent, RemoteQuoteState> {
 
     if (result is DataSuccess && result.data!.isNotEmpty) {
       currentPage++;
-      //debugPrint("Result Data:${result.data}..Current Page:$currentPage");
       quotes.addAll([...result.data!]);
       emit(RemoteQuotesSuccess(quotes: quotes));
     } else if (result is DataSuccess && result.data!.isEmpty) {
-      hasMoreAuthors = false; // No more authors to load
+      hasMoreQuotes = false; // No more authors to load
     } else {
+      hasMoreQuotes = false; // No more authors to load
       emit(RemoteQuoteFailed(error: result.error!));
     }
 
