@@ -16,16 +16,14 @@ class CustomErrorWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min     ,
         children: [
-          failure.message == noInternetError
-              ? Image.asset(
-                  AppAssets.noWifiImg,
-                  width: 200,
-                )
-              : Image.asset(
-                  AppAssets.responseErrorImg,
-                  width: 200,
-                ),
+          Image.asset(
+            failure.message == noInternetError
+                ? AppAssets.noWifiImg
+                : AppAssets.responseErrorImg,
+            width: 200,
+          ),
           Text(
             "${failure.message}",
             textAlign: TextAlign.center,

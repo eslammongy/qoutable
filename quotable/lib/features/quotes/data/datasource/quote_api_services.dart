@@ -8,7 +8,7 @@ class QuoteApiServices {
   Future<Response<dynamic>> getRemoteQuotes({required int page}) async {
     try {
       final path = '$quoteBaseUrl$quotesEndpoint?page=$page';
-
+       debugPrint("Quote Url: $path");
       final dioResponse = await dio.get(path);
       return dioResponse;
     } catch (e) {

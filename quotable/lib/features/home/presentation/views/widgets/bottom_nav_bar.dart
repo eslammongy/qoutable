@@ -21,7 +21,7 @@ class FloatingBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      margin: EdgeInsets.only(left: 20.w,right: 20.w, bottom: 30.h),
       elevation: 4,
       color: context.theme.appColors.tertiary,
       shadowColor: Colors.indigo.shade900,

@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:quotable/core/utils/internet_checker_service.dart';
+
 import 'config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +22,7 @@ Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   HttpOverrides.global = MyHttpOverrides();
+  InternetChecker.init();
   await Future.wait([
     initializeDependencies(),
     ScreenUtil.ensureScreenSize(),
