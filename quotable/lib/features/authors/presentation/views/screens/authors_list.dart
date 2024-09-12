@@ -31,7 +31,7 @@ class _AuthorsListState extends State<AuthorsList> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthorsBloc, AuthorsStates>(
       builder: (context, state) {
-        if (state is AuthorsStateSuccess) {
+        if (state is AuthorsStateSuccess || authorsBloc.authors.isNotEmpty) {
           return AuthorsGridView(
             authors: state.authors ?? authorsBloc.authors,
             controller: _scrollController,
@@ -53,19 +53,15 @@ class _AuthorsListState extends State<AuthorsList> {
   }
 
   void _onScroll() {
-    // Only fetch if not already fetching, more authors exist, and near bottom of list
-    final bool shouldFetching =
-        !authorsBloc.isFetching && authorsBloc.hasMoreAuthors;
     if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - 200 &&
-        shouldFetching) {
+        _scrollController.position.maxScrollExtent - 200) {
       authorsBloc.add(const FetchRemoteAuthorsEvent());
     }
   }
 
   @override
   void dispose() {
-    _scrollController.dispose(); // Clean up the controller
+    _scrollController.dispose();
     super.dispose();
   }
 }

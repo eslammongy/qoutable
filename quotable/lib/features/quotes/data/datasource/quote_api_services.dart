@@ -7,10 +7,9 @@ class QuoteApiServices {
   QuoteApiServices({required this.dio});
   Future<Response<dynamic>> getRemoteQuotes({required int page}) async {
     try {
-      const path = '$quoteBaseUrl$quotesEndpoint';
+      final path = '$quoteBaseUrl$quotesEndpoint?page=$page';
 
-      final dioResponse =
-          await dio.get(path, queryParameters: {'page': page});
+      final dioResponse = await dio.get(path);
       return dioResponse;
     } catch (e) {
       debugPrint("Quote Request Error::$e");

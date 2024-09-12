@@ -15,7 +15,7 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
     this.fetchAllAuthorsUsecase,
     this.fetchAuthorQuotesUsecase,
   ) : super(const AuthorsStateInit()) {
-    on<FetchRemoteAuthorsEvent>(onFetchRemoteAuthors);
+    on<FetchRemoteAuthorsEvent>(onFetchRemoteCategories);
     on<FetchAuthorQuotesEvent>(onFetchAuthorsQuotes);
   }
 
@@ -27,31 +27,32 @@ class AuthorsBloc extends Bloc<AuthorsEvents, AuthorsStates> {
   int currentPage = 1;
   bool isFetching = false;
   bool hasMoreAuthors = true;
-  onFetchRemoteAuthors(
+
+  onFetchRemoteCategories(
     FetchRemoteAuthorsEvent event,
     Emitter<AuthorsStates> emit,
   ) async {
+    // Prevent multiple requests or if no more authors
     if (isFetching || !hasMoreAuthors) return;
+
     isFetching = true;
-    try {
-      if (currentPage == 1) {
-        emit(const AuthorsStateLoading());
-      }
-
-      final result = await fetchAllAuthorsUsecase.call(params: currentPage);
-
-      if (result is DataSuccess && result.data!.isNotEmpty) {
-        currentPage++;
-        authors.addAll(result.data!);
-        emit(AuthorsStateSuccess(authors: authors));
-      } else if (result is DataSuccess && result.data!.isEmpty) {
-        hasMoreAuthors = false; // No more authors to load
-      } else {
-        emit(AuthorsStateFailed(error: result.error!));
-      }
-    } finally {
-      isFetching = false;
+    if (currentPage == 1) {
+      emit(const AuthorsStateLoading());
     }
+    emit(const AuthorsStateLoading());
+    final result = await fetchAllAuthorsUsecase.call(params: currentPage);
+
+    if (result is DataSuccess && result.data!.isNotEmpty) {
+      currentPage++;
+      emit(AuthorsStateSuccess(authors: authors = result.data!));
+    } else if (result is DataSuccess && result.data!.isEmpty) {
+      hasMoreAuthors = false; // No more authors to load
+    } else {
+      hasMoreAuthors = false; // No more authors to load
+      emit(AuthorsStateFailed(error: result.error!));
+    }
+
+    isFetching = false;
   }
 
   onFetchAuthorsQuotes(
