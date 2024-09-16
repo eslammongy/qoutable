@@ -21,36 +21,23 @@ The QuoteAll App is a simple application designed to manage and display random o
 8. Save Quotes as PNG: Allows saving quotes as PNG image files.
 9. Switch between a light theme and a dark theme
 
-## Dependencies
+## Key Dependencies Breakdown
 
-- flutter: ^2.0.0
-- cached_network_image: ^3.4.1
-- cupertino_icons: ^1.0.6
-- dio: ^5.5.0+1
-- equatable: ^2.0.5
--  flutter_bloc: ^8.1.6
-- flutter_hooks: ^0.20.5
-- flutter_native_splash: ^2.4.1
-- flutter_screenutil: ^5.9.3
-- flutter_svg: ^2.0.10+1
-- font_awesome_flutter: ^10.7.0
-- get_it: ^7.7.0
-- go_router: ^14.2.7
-- google_fonts: ^6.2.1
-- icons_launcher: ^2.1.7
-- internet_connection_checker: ^2.0.0
-- intl: ^0.19.0
-- objectbox: ^4.0.1
-- objectbox_flutter_libs: ^4.0.1
-- path_provider: ^2.1.4
-- share_plus: ^10.0.2
-- shared_preferences: ^2.3.2
-- url_launcher: ^6.3.0
+- cached_network_image: For fetching and caching images of authors or quote backgrounds.
+- dio: A powerful HTTP client for handling API requests.
+- flutter_bloc: For managing state in the app using the BLoC (Business Logic Component) pattern.
+- get_it: A service locator for dependency injection.
+- go_router: This is for seamless navigation within the app.
+- objectbox: This is for local database management to store quotes.
+- shared_preferences: To store user preferences locally, such as favorite quotes or settings.
+- share_plus: Enables sharing quotes via different platforms.
 
 ## Requirements
 
 - Flutter SDK version 2.0.0 or higher
 - Dart SDK version 2.12.0 or higher
+
+## Demo
 
 ## Screenshots
 
