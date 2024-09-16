@@ -19,6 +19,7 @@ The QuoteAll App is a simple application designed to manage and display random o
 6. Quote Format Customization: Modify the visual format of quotes, such as font and text alignment.
 7. Output Quotes as Images or Text: Users can export and share quotes as images or simple text.
 8. Save Quotes as PNG: Allows saving quotes as PNG image files.
+9. Switch between a light theme and a dark theme
 
 ## Dependencies
 
