@@ -42,9 +42,8 @@ class _RandomQuotesListState extends State<RandomQuotesList> {
           return CustomErrorWidget(
             failure: state.error!,
             onPressed: () {
-              //remoteQuoteBloc.isFetching = true;
-              debugPrint("onPressed: ${remoteQuoteBloc.isFetching}");
-              remoteQuoteBloc.add(const FetchRemoteQuotes());
+              remoteQuoteBloc.hasMoreQuotes = true;
+              RemoteQuoteBloc.get(context).add(const FetchRemoteQuotes());
             },
           );
         } else {

@@ -42,6 +42,7 @@ class _AuthorsListState extends State<AuthorsList> {
           return CustomErrorWidget(
             failure: state.error!,
             onPressed: () {
+              authorsBloc.hasMoreAuthors = true;
               authorsBloc.add(const FetchRemoteAuthorsEvent());
             },
           );
