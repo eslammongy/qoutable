@@ -32,6 +32,13 @@ The QuoteAll App is a simple application designed to manage and display random o
 - shared_preferences: To store user preferences locally, such as favorite quotes or settings.
 - share_plus: Enables sharing quotes via different platforms.
 
+## Upcoming Features:
+- Search by author or category.
+- Translate quotes into any language.
+- Add quotes as a native home widget.
+- Expand quote categories.
+
+
 ## Requirements
 
 - Flutter SDK version 2.0.0 or higher
