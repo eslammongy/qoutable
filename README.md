@@ -1,6 +1,6 @@
 # QuoteAll App
 
-The QuoteAll App is a simple application designed to manage and display random or specific quotes from a set database or an API. It provides users with a clean interface to fetch, display, and save quotes while allowing customization through various features such as gradient background and font format changes.
+The Quotable App is a simple application designed to manage and display random or specific quotes from a set database or an API. It provides users with a clean interface to fetch, display, and save quotes while allowing customization through various features such as gradient background and font format changes.
 
 ## Getting Started
 
